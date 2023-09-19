@@ -1,15 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Image, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import * as Font from 'expo-font';
 
 export const buttons = StyleSheet.create({
     buttonStyle: {
+      width: '80%',
       backgroundColor: '#fff', // background color
-      borderRadius: 80, // Rounded corners
-      paddingVertical: 16, // Vertical padding
-      paddingHorizontal: 92, // Horizontal padding
-      margin: 15,
+      borderRadius: 100, // Rounded corners
+      paddingVertical: 15, // Vertical padding
+      paddingHorizontal: 20, // Horizontal padding
+      margin: 10,
       alignItems: 'center', // Center text horizontally
       justifyContent: 'center', // Center text vertically
       shadowColor: '#000',
@@ -21,17 +23,27 @@ export const buttons = StyleSheet.create({
       shadowRadius: 2,
       elevation: 3
     },
+
     buttonContainer: {
       flexDirection: 'column', // Arrange buttons horizontally
       justifyContent: 'space-between', // Distribute space between buttons
-      width: '95%', // Adjust the width of the container
-    },
+      width: '100%', // Adjust the width of the container
+      position: 'absolute',
+      bottom: 100,
+      flex: 1,
+      justifyContent: 'center',
+      //padding: 10,
+      
+    }, 
     
     text: {
+      fontFamily: 'texgyreadventor-bold', // does not read right now
       color: '#000000', // text color
       fontSize: 20, // Text size
     }
     })
+
+
     //----------- Login stuff below until refactor --------------------------------- 
     const LoginButton = ({ onPress }) => {
     return (
