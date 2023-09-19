@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4b41d2c0-42e4-442a-a7bd-52aff4d82ee1"
+      }
+    },
+    "owner": "soleibee_studio"
   }
 }
