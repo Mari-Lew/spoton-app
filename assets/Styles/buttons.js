@@ -29,15 +29,15 @@ export const buttons = StyleSheet.create({
       justifyContent: 'space-between', // Distribute space between buttons
       width: '100%', // Adjust the width of the container
       position: 'absolute',
-      bottom: 100,
+      bottom: 0,
       flex: 1,
       justifyContent: 'center',
-      //padding: 10,
+      alignItems: 'center',
       
     }, 
     
     text: {
-      fontFamily: 'texgyreadventor-bold', // does not read right now
+      //fontFamily: 'texgyreadventor-bold', // does not read right now
       color: '#000000', // text color
       fontSize: 20, // Text size
     }
