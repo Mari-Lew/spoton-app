@@ -5,11 +5,12 @@ import { StatusBar } from 'expo-status-bar';
   import { buttons } from '../../assets/Styles/buttons';
 
 
-export function Login() {
+export function Login(props) {
   // Variables and Such
   const { width, height } = Dimensions.get('window'); // want the dimenstions of the screen width and height
   const [emailInput, setEmailText] = useState(''); // State to hold user input
   const [passwordInput, setPasswordText] = useState(''); // State to hold user input
+  const { handleLogin } = props;
 
 
 const handleEmailState = (text) => {
@@ -20,7 +21,9 @@ const handlePasswordState = (text) => {
 }
 
   const logIn = () => {
-    // Handle the login logic here
+    // Handle the login logic here.
+    handleLogin.useState(true); // will need to check if credentials are correct but for now, just setting it to true for testing
+    
     console.log('Email: ', emailInput);
     console.log('Password: ', passwordInput);
   };
@@ -80,7 +83,8 @@ return (
   <View style={styles.forgotPassword}>
     <TouchableOpacity>
       <Text
-      style={styles.whiteText}>Forgot Password?</Text>
+      style={styles.whiteText}
+      >Forgot Password?</Text>
     </TouchableOpacity>
   </View>
 
