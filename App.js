@@ -51,7 +51,7 @@ return (<View style={{ flex: 1 }}>
     <View style={flex= 1}/>
   ) : (
     // Render the login page when the user is not logged in
-    <Login style={flex= 1} />
+    <Login handleLogin={handleLogin} style={flex= 1} />
   )}
 </View>
 )
