@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
   import React, { useState } from 'react';
-  import { View, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
+  import { View, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
   import LinearGradient from 'react-native-linear-gradient';
   import { buttons } from '../../assets/Styles/buttons';
+  import { constants } from '../../assets/constants';
 
 
 export function Login(props) {
@@ -46,48 +47,67 @@ return (
     </View>
 
   {/*EMAIL INPUT*/}
-  <View style={buttons.buttonContainer}>
   
-  <TextInput
-      style={styles.input}
-      placeholder="Enter Email"
-      onChangeText={handleEmailState}
-      value={emailInput}
-      underlineColorAndroid="transparent"
-      placeholderTextColor="white"
-      color="white"
-    />
+  
+{/** Set one */}
+  <KeyboardAvoidingView
+              style={styles.keyboardAvoid}
+              behavior="padding" >
 
-<TextInput
-      style={styles.input}
-      placeholder="Enter Password"
-      secureTextEntry={true}
-      onChangeText={handlePasswordState}
-      value={passwordInput}
-      underlineColorAndroid="transparent"
-      placeholderTextColor="white"
-      color="white"
-    />
+    <View style={styles.view1}>
+          <TextInput
+            style={styles.input}
+            placeholder= { constants.enterEmail }
+            onChangeText={handleEmailState}
+            value={emailInput}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="white"
+            color="white"
+        />
 
-  <TouchableOpacity style={buttons.buttonStyle} onPress={logIn}>
-    <Text style={buttons.text}>LOGIN</Text>
-  </TouchableOpacity>
+          <TextInput
+            style={styles.input}
+            placeholder= { constants.enterPassword }
+            secureTextEntry={true}
+            onChangeText={handlePasswordState}
+            value={passwordInput}
+            underlineColorAndroid="transparent"
+            placeholderTextColor="white"
+            color="white"
+          />
+    </View>
+  </KeyboardAvoidingView>
 
-  <View style={styles.verticalText}>
-    <Text
-    style={styles.whiteText}>Don't have an account? </Text>
-    <TouchableOpacity
-    ><Text style={styles.whiteText}>Sign Up Now!</Text></TouchableOpacity>
+  <View style={styles.secondHalf}>
+        {/* View at the top of the second half */}
+    <View style={buttons.buttonContainer}>
+          {/* Content for View 2 */}
+          <TouchableOpacity style={buttons.buttonStyle} onPress={logIn}>
+            <Text style={buttons.text}>{constants.login}</Text>
+          </TouchableOpacity>
+
+      <View style={styles.verticalText}>
+          <Text
+          style={styles.whiteText}>{constants.dontHaveAcc}</Text>
+          <TouchableOpacity
+          ><Text style={styles.whiteText}>{constants.signUpNow}</Text></TouchableOpacity>
+      </View>
+
+      <View style={styles.forgotPassword}>
+        <TouchableOpacity>
+          <Text
+          style={styles.whiteText}
+          >{constants.forgotPass}</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   </View>
 
-  <View style={styles.forgotPassword}>
-    <TouchableOpacity>
-      <Text
-      style={styles.whiteText}
-      >Forgot Password?</Text>
-    </TouchableOpacity>
-  </View>
+{/** Set two */}
+  <View style={buttons.buttonContainer}>
+    
 
+{/** Set two end*/}
   </View>  
 </View> 
 </ImageBackground>
@@ -98,6 +118,7 @@ return (
 //-------------------------------------------------------------------------
 const styles = StyleSheet.create({
 container: {
+  flexDirection: 'column',
   flex: 1,
   resizeMode: 'cover',
   justifyContent: 'center',
@@ -151,6 +172,26 @@ forgotPassword:
   justifyContent: 'center',
   bottom: 1,
   paddingBottom:50
-}});
+},
+
+keyboardAvoid:
+{ 
+  flex:5,
+  width: '100%'
+},
+view1: {
+  flex: 1, // View 1 takes up the first half
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  //backgroundColor: 'red'
+},
+secondHalf: {
+  flex: 1, // Takes up the second half of the screen
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'flex-start'
+},
+
+});
   
   export default Login;

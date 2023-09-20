@@ -28,12 +28,10 @@ export const buttons = StyleSheet.create({
       flexDirection: 'column', // Arrange buttons horizontally
       justifyContent: 'space-between', // Distribute space between buttons
       width: '100%', // Adjust the width of the container
-      position: 'absolute',
-      bottom: 0,
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignItems: 'center',
-      
+      //backgroundColor: 'blue'
     }, 
     
     text: {

@@ -7,7 +7,7 @@ export const constants =
         enterEmail: "Enter Email" ,
         enterPassword: "Enter Password",
         login: "LOGIN",
-        dontHaveAcc: "Don't have an account?",
+        dontHaveAcc: "Don't have an account? ",
         signUpNow: "Sign Up Now!",
         forgotPass: "Forgot Password?"
         
