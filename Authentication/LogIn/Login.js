@@ -1,29 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-  import React, { useState } from 'react';
+  import React, { useState, useRef  } from 'react';
   import { View, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-  import LinearGradient from 'react-native-linear-gradient';
   import { buttons } from '../../assets/Styles/buttons';
   import { constants } from '../../assets/constants';
 
-
-export function Login(props) {
+export function Login({ navigation }) {
   // Variables and Such
-  const { width, height } = Dimensions.get('window'); // want the dimenstions of the screen width and height
-  const [emailInput, setEmailText] = useState(''); // State to hold user input
-  const [passwordInput, setPasswordText] = useState(''); // State to hold user input
-  const { handleLogin } = props;
+    const [emailInput, setEmailText] = useState(''); // State to hold user input
+    const [passwordInput, setPasswordText] = useState(''); // State to hold user input
 
+    const emailInputRef = useRef(null); // ref for the email input
+    const passwordInputRef = useRef(null); // ref for the password input
 
-const handleEmailState = (text) => {
-  setEmailText(text)
-}
-const handlePasswordState = (text) => {
-  setPasswordText(text)
-}
+  // Handlers for different states
+    const handleSignUpPress = () => {
+      navigation.navigate('SignUp'); // Navigate to the SignUp screen
+    };
+
+    const handleEmailState = (text) => {
+      setEmailText(text)
+    }
+    const handlePasswordState = (text) => {
+      setPasswordText(text)
+    }
 
   const logIn = () => {
     // Handle the login logic here.
-    handleLogin.useState(true); // will need to check if credentials are correct but for now, just setting it to true for testing
+    // will need to check if credentials are correct but for now, just setting it to true for testing
     
     console.log('Email: ', emailInput);
     console.log('Password: ', passwordInput);
@@ -52,7 +54,8 @@ return (
 {/** Set one */}
   <KeyboardAvoidingView
               style={styles.keyboardAvoid}
-              behavior="padding" >
+              behavior="padding" 
+              keyboardVerticalOffset={20} >
 
     <View style={styles.view1}>
           <TextInput
@@ -63,6 +66,8 @@ return (
             underlineColorAndroid="transparent"
             placeholderTextColor="white"
             color="white"
+            ref={emailInputRef} 
+            onSubmitEditing={() => passwordInputRef.current.focus()}
         />
 
           <TextInput
@@ -74,6 +79,7 @@ return (
             underlineColorAndroid="transparent"
             placeholderTextColor="white"
             color="white"
+            ref={passwordInputRef}
           />
     </View>
   </KeyboardAvoidingView>
@@ -89,7 +95,9 @@ return (
       <View style={styles.verticalText}>
           <Text
           style={styles.whiteText}>{constants.dontHaveAcc}</Text>
+          
           <TouchableOpacity
+          onPress={handleSignUpPress}
           ><Text style={styles.whiteText}>{constants.signUpNow}</Text></TouchableOpacity>
       </View>
 
@@ -166,23 +174,23 @@ verticalText: {
 forgotPassword:
 {
   width: '100%',
-  height:'60%',
+  height:'100%',
   color: '#fff',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   bottom: 1,
-  paddingBottom:50
+  paddingTop: 10,
 },
 
 keyboardAvoid:
 { 
   flex:5,
-  width: '100%'
+  width: '100%',
 },
 view1: {
   flex: 1, // View 1 takes up the first half
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-end'
   //backgroundColor: 'red'
 },
 secondHalf: {

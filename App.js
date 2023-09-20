@@ -1,10 +1,14 @@
 // Imports
   import AsyncStorage from '@react-native-async-storage/async-storage';
+  import React, { useState, useEffect } from 'react';
   import { View, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
   import { Login } from './Authentication/LogIn/Login';
+import { SignUp } from './Authentication/SignUp/SignUp';
 
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const saveLoggedInState = async (loggedIn) => {
     try {
       await AsyncStorage.setItem('isLoggedIn', loggedIn.toString());
@@ -13,48 +17,53 @@ export default function App() {
     }
   };
 
-  // Log the user in
-const handleLogin = () => {
-  // Perform login logic
-  saveLoggedInState(true);
-};
-
-// Log the user out
-const handleLogout = () => {
-  // Perform logout logic
-  saveLoggedInState(false);
-};
-
 const checkLoggedInState = async () => {
   try {
     const loggedInString = await AsyncStorage.getItem('isLoggedIn');
     if (loggedInString !== null) {
       const loggedIn = loggedInString === 'true';
-      // Use 'loggedIn' to determine the user's logged-in state
-      return loggedIn;
+      setIsLoggedIn(loggedIn);
     }
   } catch (error) {
     console.error('Error retrieving logged-in state:', error);
   }
-  return false; // Default to not logged in
+};
+
+useEffect(() => {
+  checkLoggedInState();
+}, []); // Run once on component mount
+
+const handleLogin = () => {
+  // Perform login logic
+  saveLoggedInState(true);
+  setIsLoggedIn(true); // Update the state
+};
+
+const handleLogout = () => {
+  // Perform logout logic
+  saveLoggedInState(false);
+  setIsLoggedIn(false); // Update the state
 };
 
 //----------------------------------------------------------------- Above will be refactored later 
-const isLoggedIn = false; //= checkLoggedInState();
 
 
-
-return (<View style={{ flex: 1 }}>
-  {/* Conditional rendering based on isLoggedIn */}
+return (
+  <View style={styles.container}>
   {isLoggedIn ? (
     // Render the main content when the user is logged in
-    <View style={flex= 1}/>
+    <Text>"Nothing here yet"</Text>
   ) : (
     // Render the login page when the user is not logged in
-    <Login handleLogin={handleLogin} style={flex= 1} />
+      //<Login onLogin={handleLogin} />
+      <SignUp />
   )}
 </View>
 )
+}
 
-
-};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});;
