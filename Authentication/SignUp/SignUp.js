@@ -4,8 +4,6 @@ import { buttons } from '../../assets/Styles/buttons';
 import { constants } from '../../assets/constants';
 import Dropdown from './Dropdown';
 
-
-
 export const SignUp = ({ navigation }) => {
 // Variables and such
   const [emailInput, setNewEmail] = useState(''); // State to hold the email the user will sign up with
@@ -16,15 +14,15 @@ export const SignUp = ({ navigation }) => {
   const passwordInputRef = useRef(null); // ref for the password input
   const passwordConfirmInputRef = useRef(null); // ref for the password input
 
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPasswordFormat, setIsValidPasswordFormat] = useState(true);
+  const [isValidEmail, setIsValidEmail] = useState(true); // if the user input a correct email
+  const [isValidPasswordFormat, setIsValidPasswordFormat] = useState(true); // if the password meets requirements
+  const [passwordsMatch, setIsValidPasswordsMatch] = useState(true); // if the passwords matched when re-entered
+  const [UserSelectedItem, setUserSelectedItem] = useState(true); // if they selected an item from the drop down
 
 // State handlers
   const handleNewEmailState = (text) => {
-    setNewEmail(text)
-  }
-  const handleNewPNumberState = (text) => {
-    setNewPNumber(text)
+    setNewEmail(text);
+    setIsValidEmail(validEmailCheck(text));
   }
   const handleNewPasswordState = (text) => {
     setNewPassword(text)
@@ -34,26 +32,26 @@ export const SignUp = ({ navigation }) => {
   }
 
   //Validation Checking
+    /**
+     * validEmailCheck
+     * This function checks if the user is inputting a valid email pattern in.
+     * Does not check if the email is a legitimate email.
+     * 
+     * @param {*} input 
+     * @returns true if the input is a valid email pattern
+     */
     const validEmailCheck = (input) =>
     {
-      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,4}$/i;
 
-      if (emailRegex.test(input) === false) {
-        console.log("Email is Not Correct");
-        setIsValidEmail(false);
-
-      }
-      else {
-        
-        console.log("Email is Correct");
-        setIsValidEmail(true);
-      }
+      //console.log('Valid email check returns: ' + emailRegex.test(input));
+      return emailRegex.test(input);
     }
 
     // want password to be at least 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 special character
     const isValidPassword = (input) =>
     {
-      const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&-_])[A-Za-z\d@$!%*?&-_]{8,}$/;
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-_])[A-Za-z\d@$!%*?&-_]{8,}$/;
       
       if (passwordRegex.test(input) === false) {
         console.log("Password does not fulfill conditions");
@@ -67,17 +65,18 @@ export const SignUp = ({ navigation }) => {
 
     }
 
-  const inputError = () =>
-  {
-    setIsError(true);
-  }
+    const validatePasswordConfirmation = (input) => {
+      setIsValidPasswordsMatch(input === passwordInput);
+    };
 
   //Sign up logic
   const signUpFun = () => {
-    validEmailCheck(emailInput);
-    isValidPassword(passwordInput);
+    if (!isValidEmail || !isValidPasswordFormat || !passwordsMatch) {
+      console.log('Please correct the form errors');
+      return;
+    }
 
-    //console.log('Email: ', emailInput);
+    console.log('Email: ', emailInput);
     console.log('Password: ', passwordInput);
     //console.log('Password Confirm: ', confirmPasswordInput);
     //console.log('I am a:', selectedItem.value);
@@ -109,8 +108,14 @@ return(
   >
   <View style={styles.overlay}>
     <View style={styles.informationBox}>
+
     <View>
   <Text style={styles.label}>Email</Text>
+  
+
+  {!isValidEmail && (
+        <Text style={styles.errorLabel}>Input valid email</Text>
+      )}
 
   <TextInput
             style={[styles.input, !isValidEmail && styles.inputERROR]}
@@ -144,6 +149,10 @@ return(
     />
 
   </View>
+
+  <View style = {styles.smallBreak}></View>
+
+  <Text style={styles.nonBoldSmalllabel}>Must be 8 or more characters and contain at least 1 capital letter, 1 number, and 1 special character.</Text>
 
   <View style= {styles.break}/>
 
@@ -184,6 +193,10 @@ onSelect={handleSelect} />
             <Text style={buttons.text}>{constants.signUp}</Text>
           </TouchableOpacity>
 </View>
+
+
+<View style={styles.divider}></View>
+
     </View>
   </View>
   </ImageBackground>
@@ -232,6 +245,20 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     color: 'white'
   },
+  nonBoldSmalllabel: {
+    fontSize: 15,
+    textAlign: 'left',
+    marginLeft: '5%',
+    paddingRight: '10%',
+    color: 'white'
+  },
+  errorLabel: {
+    fontSize: 15,
+    marginBottom: 5,
+    textAlign: 'left',
+    marginLeft: 20,
+    color: 'red'
+  },
   input: {
     width: '90%',
     padding: 10,
@@ -263,6 +290,13 @@ break:
 {
   margin: 10
 },
-
-
+smallBreak:
+{
+  margin: 5
+},
+divider: {
+  height: 0.2, // Set the height of the divider
+  backgroundColor: 'white', // Set the color of the divider
+  justifyContent: 'center'
+},
 })
