@@ -17,6 +17,11 @@ export const SignUp = ({ navigation }) => {
   const [isValidEmail, setIsValidEmail] = useState(true); // if the user input a correct email
   const [isValidPasswordFormat, setIsValidPasswordFormat] = useState(true); // if the password meets requirements
   const [passwordsMatch, setIsValidPasswordsMatch] = useState(true); // if the passwords matched when re-entered
+  const [hasEightChars, setHasEightChars] = useState(true);
+  const [hasOneUppercase, setHasOneUpperCase] = useState(true);
+  const [hasOneNum, sethasOneNum] = useState(true);
+  const [hasOneSpecial, sethasOneSpecial] = useState(true);
+
   const [UserSelectedItem, setUserSelectedItem] = useState(true); // if they selected an item from the drop down
 
 // State handlers
@@ -24,9 +29,18 @@ export const SignUp = ({ navigation }) => {
     setNewEmail(text);
     setIsValidEmail(validEmailCheck(text));
   }
+
   const handleNewPasswordState = (text) => {
-    setNewPassword(text)
+    setNewPassword(text);
+
+    setHasEightChars(text.length >= 8);
+    setHasOneUpperCase(/[A-Z]/.test(text));
+    sethasOneNum(/\d/.test(text));
+    sethasOneSpecial(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/.test(text));
+
+    setIsValidPasswordFormat(isValidPassword(text));
   }
+
   const handleNewPasswordConfirmState = (text) => {
     setPasswordConfirmation(text)
   }
@@ -48,20 +62,15 @@ export const SignUp = ({ navigation }) => {
       return emailRegex.test(input);
     }
 
-    // want password to be at least 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 special character
+    /**
+     * isValidPassword
+     * @param {*} input 
+     */
     const isValidPassword = (input) =>
     {
-      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-_])[A-Za-z\d@$!%*?&-_]{8,}$/;
-      
-      if (passwordRegex.test(input) === false) {
-        console.log("Password does not fulfill conditions");
-        setIsValidPasswordFormat(false);
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&-_])[A-Za-z\d@#$!%*?&-_]{8,}$/;
 
-      }
-      else {
-        console.log("Password fulfills conditions");
-        setIsValidPasswordFormat(true);
-      }
+      return passwordRegex.test(input);
 
     }
 
@@ -110,15 +119,17 @@ return(
     <View style={styles.informationBox}>
 
     <View>
-  <Text style={styles.label}>Email</Text>
+  <Text style={styles.label}>{constants.email}</Text>
   
 
   {!isValidEmail && (
-        <Text style={styles.errorLabel}>Input valid email</Text>
+        <Text style={styles.errorLabel}>{constants.inputValEmail}</Text>
       )}
 
   <TextInput
-            style={[styles.input, !isValidEmail && styles.inputERROR]}
+            style={[styles.input, 
+              !isValidEmail && styles.inputERROR,
+              isValidPasswordFormat && passwordInput.length > 0 && styles.inputValid]}
             placeholder= { constants.enterEmail }
             onChangeText={handleNewEmailState}
             value={emailInput}
@@ -134,7 +145,20 @@ return(
   <View style= {styles.break}/>
 
   <View>
-  <Text style={styles.label}>Enter Password</Text>
+  <Text style={styles.label}>{constants.enterPassword}</Text>
+
+  {!hasEightChars && (
+        <Text style={styles.errorLabel}>{"At least 8 characters required"}</Text>
+      )}
+  {!hasOneNum && (
+        <Text style={styles.errorLabel}>{"At least 1 number required"}</Text>
+      )}
+  {!hasOneUppercase && (
+        <Text style={styles.errorLabel}>{"At least 1 uppercase letter required"}</Text>
+      )}
+  {!hasOneSpecial && (
+        <Text style={styles.errorLabel}>{"At least 1 special character required. Accepted: @#$!%*?&-_ "}</Text>
+      )}
 
   <TextInput
             style={[styles.input, !isValidPasswordFormat && styles.inputERROR]}
@@ -152,7 +176,7 @@ return(
 
   <View style = {styles.smallBreak}></View>
 
-  <Text style={styles.nonBoldSmalllabel}>Must be 8 or more characters and contain at least 1 capital letter, 1 number, and 1 special character.</Text>
+  <Text style={styles.nonBoldSmalllabel}>{constants.passRequirements}</Text>
 
   <View style= {styles.break}/>
 
@@ -194,10 +218,16 @@ onSelect={handleSelect} />
           </TouchableOpacity>
 </View>
 
+<View style= {styles.break}/>
 
-<View style={styles.divider}></View>
+</View>
+<View style={styles.divider}/>
 
-    </View>
+<View style={{ marginTop: 10 }}>
+  <TouchableOpacity onPress={signUpFun}>
+    <Text style={styles.nonBoldSmalllabel}>Back to Log in</Text>
+  </TouchableOpacity>
+</View>
   </View>
   </ImageBackground>
   </View>
@@ -220,7 +250,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)', // You can add a semi-transparent overlay if needed
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // You can add a semi-transparent overlay if needed
     //backgroundColor: 'grey',
     justifyContent: 'flex-start',
     flexDirection: 'column'
@@ -228,13 +258,11 @@ const styles = StyleSheet.create({
   },
   informationBox:
   {
-    flex: 1,
     width: '100%',
     justifyContent: 'flex-start',
     marginTop: '40%',
     alignContent: 'center',
-    paddingLeft: '10%',
-    paddingRight: '5%'
+    paddingLeft: '5%'
 
   },
   label: {
@@ -247,10 +275,10 @@ const styles = StyleSheet.create({
   },
   nonBoldSmalllabel: {
     fontSize: 15,
-    textAlign: 'left',
+    textAlign: 'center',
     marginLeft: '5%',
     paddingRight: '10%',
-    color: 'white'
+    color: 'white',
   },
   errorLabel: {
     fontSize: 15,
@@ -295,8 +323,12 @@ smallBreak:
   margin: 5
 },
 divider: {
-  height: 0.2, // Set the height of the divider
+  height: 1, // Set the height of the divider
+  width: '90%',
   backgroundColor: 'white', // Set the color of the divider
-  justifyContent: 'center'
+  justifyContent: 'center',
+  alignSelf: 'center'
+
+
 },
 })
