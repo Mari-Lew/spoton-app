@@ -1,21 +1,23 @@
-import React, { useState, useRef, useEffect  } from 'react';
-import { View, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useState, useRef  } from 'react';
+import { View, Text, ImageBackground, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { buttons } from '../../assets/Styles/buttons';
 import { constants } from '../../assets/constants';
 import Dropdown from './Dropdown';
 
 
+
 export const SignUp = ({ navigation }) => {
 // Variables and such
   const [emailInput, setNewEmail] = useState(''); // State to hold the email the user will sign up with
-  const [phoneInput, setNewPNumber] = useState(''); // State to hold the email the user will sign up with
   const [passwordInput, setNewPassword] = useState(''); // State to hold password for the user
   const [confirmPasswordInput, setPasswordConfirmation] = useState(''); // State to hold password for the user to check
 
   const emailInputRef = useRef(null); // ref for the email input
   const passwordInputRef = useRef(null); // ref for the password input
   const passwordConfirmInputRef = useRef(null); // ref for the password input
-  const phoneInputRef = useRef(null); // ref for the password input
+
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPasswordFormat, setIsValidPasswordFormat] = useState(true);
 
 // State handlers
   const handleNewEmailState = (text) => {
@@ -31,13 +33,56 @@ export const SignUp = ({ navigation }) => {
     setPasswordConfirmation(text)
   }
 
+  //Validation Checking
+    const validEmailCheck = (input) =>
+    {
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+      if (emailRegex.test(input) === false) {
+        console.log("Email is Not Correct");
+        setIsValidEmail(false);
+
+      }
+      else {
+        
+        console.log("Email is Correct");
+        setIsValidEmail(true);
+      }
+    }
+
+    // want password to be at least 8 characters, with 1 uppercase, 1 lowercase, 1 number, and 1 special character
+    const isValidPassword = (input) =>
+    {
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&-_])[A-Za-z\d@$!%*?&-_]{8,}$/;
+      
+      if (passwordRegex.test(input) === false) {
+        console.log("Password does not fulfill conditions");
+        setIsValidPasswordFormat(false);
+
+      }
+      else {
+        console.log("Password fulfills conditions");
+        setIsValidPasswordFormat(true);
+      }
+
+    }
+
+  const inputError = () =>
+  {
+    setIsError(true);
+  }
+
   //Sign up logic
   const signUpFun = () => {
-    // Handle the login logic here.
-    // will need to check if credentials are correct but for now, just setting it to true for testing
-    
-    console.log('Email: ', emailInput);
+    validEmailCheck(emailInput);
+    isValidPassword(passwordInput);
+
+    //console.log('Email: ', emailInput);
     console.log('Password: ', passwordInput);
+    //console.log('Password Confirm: ', confirmPasswordInput);
+    //console.log('I am a:', selectedItem.value);
+
+    //console.log('Valid email?', isValidEmail);
   };
 
 //Dropdown Handling
@@ -46,7 +91,7 @@ export const SignUp = ({ navigation }) => {
     { label: 'Coach', value: 'coach' },
     { label: 'Director', value: 'director' },
   ]
-  const [selectedItem, setSelectedItem] = useState(dropdownItems[0]);
+  const [selectedItem, setSelectedItem] = useState(dropdownItems[null]);
 
   const handleSelect = (item) => {
     setSelectedItem(item);
@@ -68,7 +113,7 @@ return(
   <Text style={styles.label}>Email</Text>
 
   <TextInput
-            style={styles.input}
+            style={[styles.input, !isValidEmail && styles.inputERROR]}
             placeholder= { constants.enterEmail }
             onChangeText={handleNewEmailState}
             value={emailInput}
@@ -76,27 +121,6 @@ return(
             placeholderTextColor="white"
             color="white"
             ref={emailInputRef} 
-            onSubmitEditing={() => phoneInputRef.current.focus()}
-    />
-
-  </View>
-
-  <View style= {styles.break}/>
-
-  <View>
-  <Text style={styles.label}>{constants.phoneNumber}</Text>
-
-  <TextInput
-            style={styles.input}
-            placeholder= { constants.enterPhoneNumber }
-            onChangeText={handleNewPNumberState}
-            value={phoneInput}
-            keyboardType="numeric"
-            returnKeyType="done"
-            underlineColorAndroid="transparent"
-            placeholderTextColor="white"
-            color="white"
-            ref={phoneInputRef} 
             onSubmitEditing={() => passwordInputRef.current.focus()}
     />
 
@@ -108,7 +132,7 @@ return(
   <Text style={styles.label}>Enter Password</Text>
 
   <TextInput
-            style={styles.input}
+            style={[styles.input, !isValidPasswordFormat && styles.inputERROR]}
             placeholder= { constants.enterNewPassword }
             onChangeText={handleNewPasswordState}
             value={passwordInput}
@@ -129,7 +153,7 @@ return(
   <TextInput
             style={styles.input}
             placeholder= { constants.confirmPassword }
-            onChangeText={handleNewPasswordState}
+            onChangeText={handleNewPasswordConfirmState}
             value={confirmPasswordInput}
             underlineColorAndroid="transparent"
             placeholderTextColor="white"
@@ -145,7 +169,11 @@ return(
 <View>
 
 <Text style={styles.label}> {constants.iAmA}</Text>
-<Dropdown style= {styles.dropDown} items={dropdownItems} selectedItem={selectedItem} onSelect={handleSelect} />
+<Dropdown 
+style= {styles.dropDown}
+items={dropdownItems} 
+selectedItem={selectedItem} 
+onSelect={handleSelect} />
 
 </View>
 
@@ -215,6 +243,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20
   },
+  inputERROR: {
+    width: '90%',
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 100,
+    backgroundColor: 'rgba(255, 0, 0, 0.5)',
+    borderColor: 'rgba(255, 0, 0, 0.5)',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontSize: 20
+  },
   keyboardAvoid:
 { 
   flex:5,
@@ -222,7 +261,7 @@ const styles = StyleSheet.create({
 },
 break:
 {
-  margin: 5
+  margin: 10
 },
 
 

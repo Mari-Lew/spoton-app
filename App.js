@@ -1,11 +1,9 @@
 // Imports
   import AsyncStorage from '@react-native-async-storage/async-storage';
   import React, { useState, useEffect } from 'react';
-  import {NavigationContainer} from '@react-navigation/native';
-  import { View, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
-  import { Login } from './Authentication/LogIn/Login';
+  import { StyleSheet } from 'react-native';
   import { SignUp } from './Authentication/SignUp/SignUp';
-  import { HomeScreen } from './MainScreen/HomeScreen';
+
   
 
 
@@ -50,11 +48,10 @@ export default function App() {
 
 //----------------------------------------------------------------- Above will be refactored later 
 
+//const Stack = createStackNavigator();
 
 return (
-  <NavigationContainer>
-    
-  </NavigationContainer>
+  <SignUp/>
 )
 }
 

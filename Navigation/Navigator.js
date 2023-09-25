@@ -10,14 +10,7 @@ const Stack = createStackNavigator();
 const Navigator =() => {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen 
-          name="Login" 
-          component={Login} />
-          <Stack.Screen 
-          name="SignUp" 
-          component={SignUp} />
-        </Stack.Navigator>
+        
       </NavigationContainer>
     );
   }

@@ -4,7 +4,7 @@ import { constants } from '../../assets/constants';
 import { buttons } from '../../assets/Styles/buttons';
   
 
-const Login = ({ navigation, route }) => {
+export function Login ({ navigation }) {
   // Variables and Such
     const [emailInput, setEmailText] = useState(''); // State to hold user input
     const [passwordInput, setPasswordText] = useState(''); // State to hold user input

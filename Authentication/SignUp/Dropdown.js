@@ -1,23 +1,30 @@
-import React, { useState,useRef } from 'react';
+import React, { useState } from 'react';
 import {
   View,Text, TouchableOpacity, Modal, FlatList,StyleSheet,
 } from 'react-native';
 
-
-
 const Dropdown = ({ items, selectedItem, onSelect }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const [isOpen, setIsOpen] = useState(false);
+
+const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+};
+
+
 
   return (
-    <View>
-      <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
-        <Text>{selectedItem.label}</Text>
+      <View>
+      <TouchableOpacity style= {styles.dropdownButtonStyle}  onPress={toggleDropdown}>
+      <Text style={styles.whiteText}>
+            {selectedItem ? selectedItem.label : 'Select an option'}
+          </Text>
       </TouchableOpacity>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={isOpen}
-        onRequestClose={() => setIsOpen(false)}>
+        onRequestClose={toggleDropdown}>
         <View style={styles.modalContainer}>
           <View style={styles.dropdownContent}>
             <FlatList
@@ -31,6 +38,7 @@ const Dropdown = ({ items, selectedItem, onSelect }) => {
                     setIsOpen(false);
                   }}>
                   <Text style={styles.listItemText}>{item.label}</Text>
+                  <View style={styles.separator} />
                 </TouchableOpacity>
               )}
             />
@@ -47,23 +55,51 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    
   },
   dropdownContent: {
     position: 'absolute',
     backgroundColor: '#fff',
     width: '100%',
+    height: '50%',
     shadowColor: '#000000',
-    shadowRadius: 4,
-    shadowOffset: { height: 4, width: 0 },
-    shadowOpacity: 0.5,
+    borderRadius:20
   },
   listItem: {
     alignItems: 'center', // Center items horizontally within the listItem
-    paddingVertical: 10,
+
   },
   listItemText: {
     fontSize: 20,
+    marginTop: 10,
+    marginBottom: 10
   },
+  dropdownButtonStyle: {
+    flexDirection: 'row',
+    width: '90%',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: 100, // Rounded corners
+    padding:10,
+    fontSize: 20,
+    borderWidth: 1,
+    borderRadius: 100,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+},
+whiteText: {
+  
+  fontSize: 20,
+  textAlign: 'left',
+  color: 'white'
+},
+separator: {
+  borderBottomWidth: 1, // Add a bottom border to separate items
+  borderBottomColor: '#ccc', // Border color
+  width: '90%', 
+  margin: 5
+},
 });
 
 export default Dropdown;
+
