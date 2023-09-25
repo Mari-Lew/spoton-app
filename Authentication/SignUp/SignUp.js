@@ -1,5 +1,6 @@
 import React, { useState, useRef  } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { FontAwesome } from 'react-native-vector-icons';
 import { buttons } from '../../assets/Styles/buttons';
 import { constants } from '../../assets/constants';
 import Dropdown from './Dropdown';
@@ -13,6 +14,7 @@ export const SignUp = ({ navigation }) => {
   const emailInputRef = useRef(null); // ref for the email input
   const passwordInputRef = useRef(null); // ref for the password input
   const passwordConfirmInputRef = useRef(null); // ref for the password input
+  const [showPassword, setShowPassword] = useState(false);
 
   const [isValidEmail, setIsValidEmail] = useState(true); // if the user input a correct email
   const [isValidPasswordFormat, setIsValidPasswordFormat] = useState(true); // if the password meets requirements
@@ -76,6 +78,10 @@ export const SignUp = ({ navigation }) => {
 
     const validatePasswordConfirmation = (input) => {
       setIsValidPasswordsMatch(input === passwordInput);
+    };
+
+    const togglePasswordVisibility = () => {
+      setShowPassword(!showPassword);
     };
 
   //Sign up logic
@@ -160,8 +166,11 @@ return(
         <Text style={styles.errorLabel}>{"At least 1 special character required. Accepted: @#$!%*?&-_ "}</Text>
       )}
 
-  <TextInput
+<View style={styles.inputContainer}>
+<TextInput
+            secureTextEntry={!showPassword}
             style={[styles.input, !isValidPasswordFormat && styles.inputERROR]}
+            width= "80%"
             placeholder= { constants.enterNewPassword }
             onChangeText={handleNewPasswordState}
             value={passwordInput}
@@ -171,6 +180,15 @@ return(
             ref={passwordInputRef} 
             onSubmitEditing={() => passwordConfirmInputRef.current.focus()}
     />
+    <TouchableOpacity onPress={togglePasswordVisibility}>
+        <FontAwesome
+          name={showPassword ? 'eye-slash' : 'eye'}
+          size={24}
+          color="gray"
+          margin="10%"
+        />
+      </TouchableOpacity>
+</View>
 
   </View>
 
@@ -260,7 +278,7 @@ const styles = StyleSheet.create({
   {
     width: '100%',
     justifyContent: 'flex-start',
-    marginTop: '40%',
+    marginTop: '35%',
     alignContent: 'center',
     paddingLeft: '5%'
 
@@ -328,7 +346,10 @@ divider: {
   backgroundColor: 'white', // Set the color of the divider
   justifyContent: 'center',
   alignSelf: 'center'
-
-
+},
+inputContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  padding: 10,
 },
 })
