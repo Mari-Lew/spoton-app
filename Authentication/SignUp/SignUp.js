@@ -49,8 +49,6 @@ export const SignUp = ({ navigation }) => {
     sethasOneNum(/\d/.test(text));
     sethasOneSpecial(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/.test(text));
 
-    console.log(isValidPassword(text))
-
     setIsValidPasswordFormat(isValidPassword(text));
   }
 
@@ -61,12 +59,14 @@ export const SignUp = ({ navigation }) => {
   }
 
   const handleSelect = (item) => {
+    setUserSelectedAnItem(true);
     setSelectedItem(item);
   };
 
   //Use Effect for tracking variables; want these tracked to know when the sign up button can be enabled
     useEffect(() => {
       // track selectedItem
+        //setUserSelectedAnItem(true);
       console.log("Item selected: ", selectedItem);
       console.log("Was Item selected (set to true above): ", userSelectedAnItem);
     }, [selectedItem]);
@@ -74,30 +74,31 @@ export const SignUp = ({ navigation }) => {
     useEffect(() => {
       // track isValidEmail
       console.log('isValidEmail changed:', isValidEmail);
+      canSignUp();
     }, [isValidEmail]);
     
     useEffect(() => {
       // track isValidPasswordFormat
       console.log('isValidPasswordFormat changed:', isValidPasswordFormat);
+      canSignUp();
     }, [isValidPasswordFormat]);
     
     useEffect(() => {
       // This effect will run whenever passwordsMatch changes
       console.log('passwordsMatch changed:', passwordsMatch);
+      canSignUp();
     }, [passwordsMatch]);
     
     useEffect(() => {
       // This effect will run whenever userSelectedAnItem changes
       console.log('userSelectedAnItem changed:', userSelectedAnItem);
+      canSignUp();
     }, [userSelectedAnItem]);
+
+    //--------------------------------------------------------------
 
   const canSignUp = () =>
   {
-      if(selectedItem != null)
-      {
-        console.log("Test: " + userSelectedAnItem);
-      }
-
     if (isValidEmail && isValidPasswordFormat && passwordsMatch && userSelectedAnItem)
     {
       setSignUpReady(true);
