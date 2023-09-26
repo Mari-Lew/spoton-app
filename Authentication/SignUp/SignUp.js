@@ -10,7 +10,7 @@ export const SignUp = ({ navigation }) => {
   const [emailInput, setNewEmail] = useState(''); // State to hold the email the user will sign up with
   const [passwordInput, setNewPassword] = useState(''); // State to hold password for the user
   const [confirmPasswordInput, setPasswordConfirmation] = useState(''); // State to hold password for the user to check
-  const [showPassword, setShowPassword] = useState(false); // for the visibility of the password. this impacts BOTH password fields.
+  const [showPassword, setShowPassword] = useState(true); // for the visibility of the password. this impacts BOTH password fields.
   
   const emailInputRef = useRef(null); // ref for the email input
   const passwordInputRef = useRef(null); // ref for the password input
