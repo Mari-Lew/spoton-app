@@ -2,7 +2,7 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import Login from '../Authentication/LogIn/Login';
+import { Login } from '../Authentication/LogIn/Login';
 import { ForgotPassword } from '../Authentication/ForgotPassword';
 import { SignUp } from '../Authentication/SignUp/SignUp';
 import { HomeScreen } from '../Home/HomeScreen';
@@ -15,6 +15,7 @@ const Navigator = () => {
         <StackNavigator.Screen
           name="Home"
           component={HomeScreen}
+          options={{ headerShown: false }}
         />
 
         <StackNavigator.Screen

@@ -31,7 +31,7 @@ export function Login ({ navigation }) {
     console.log('Email: ', emailInput);
     console.log('Password: ', passwordInput);
 
-    navigation.navigate('SignUp')
+    navigation.navigate('Home')
   };
 
 
