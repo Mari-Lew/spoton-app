@@ -10,11 +10,11 @@ export const SignUp = ({ navigation }) => {
   const [emailInput, setNewEmail] = useState(''); // State to hold the email the user will sign up with
   const [passwordInput, setNewPassword] = useState(''); // State to hold password for the user
   const [confirmPasswordInput, setPasswordConfirmation] = useState(''); // State to hold password for the user to check
-
+  const [showPassword, setShowPassword] = useState(false); // for the visibility of the password. this impacts BOTH password fields.
+  
   const emailInputRef = useRef(null); // ref for the email input
   const passwordInputRef = useRef(null); // ref for the password input
-  const passwordConfirmInputRef = useRef(null); // ref for the password input
-  const [showPassword, setShowPassword] = useState(false);
+  const passwordConfirmInputRef = useRef(null); // ref for the password input  
 
   const [isValidEmail, setIsValidEmail] = useState(true); // if the user input a correct email
   const [isValidPasswordFormat, setIsValidPasswordFormat] = useState(true); // if the password meets requirements
@@ -24,7 +24,16 @@ export const SignUp = ({ navigation }) => {
   const [hasOneNum, sethasOneNum] = useState(true);
   const [hasOneSpecial, sethasOneSpecial] = useState(true);
 
-  const [UserSelectedItem, setUserSelectedItem] = useState(true); // if they selected an item from the drop down
+  const [signUpReady, setSignUpReady] = useState(false);
+
+//Dropdown Handling
+  const dropdownItems = [
+    { label: 'Parent', value: 'parent' },
+    { label: 'Coach', value: 'coach' },
+    { label: 'Director', value: 'director' },
+  ]
+  const [selectedItem, setSelectedItem] = useState(dropdownItems[null]);
+  const [userSelectedAnItem, setUserSelectedAnItem] = useState(true); // if they selected an item from the drop down
 
 // State handlers
   const handleNewEmailState = (text) => {
@@ -40,11 +49,25 @@ export const SignUp = ({ navigation }) => {
     sethasOneNum(/\d/.test(text));
     sethasOneSpecial(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/.test(text));
 
+    console.log(isValidPassword(text))
+
     setIsValidPasswordFormat(isValidPassword(text));
   }
 
   const handleNewPasswordConfirmState = (text) => {
     setPasswordConfirmation(text)
+
+    validatePasswordConfirmation(text);
+  }
+
+  const handleSelect = (item) => {
+    setSelectedItem(item);
+    setUserSelectedAnItem(true);
+  };
+
+  const canSignIn = () =>
+  {
+    //check every error handling variable and make sure all of them are true
   }
 
   //Validation Checking
@@ -68,13 +91,12 @@ export const SignUp = ({ navigation }) => {
      * isValidPassword
      * @param {*} input 
      */
-    const isValidPassword = (input) =>
-    {
-      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&-_])[A-Za-z\d@#$!%*?&-_]{8,}$/;
-
+    const isValidPassword = (input) => {
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$!%*?&-_]).{8,}$/;
+    
       return passwordRegex.test(input);
-
-    }
+    };
+    
 
     const validatePasswordConfirmation = (input) => {
       setIsValidPasswordsMatch(input === passwordInput);
@@ -93,23 +115,11 @@ export const SignUp = ({ navigation }) => {
 
     console.log('Email: ', emailInput);
     console.log('Password: ', passwordInput);
-    //console.log('Password Confirm: ', confirmPasswordInput);
-    //console.log('I am a:', selectedItem.value);
+    console.log('Password Confirm: ', confirmPasswordInput);
+    console.log('I am a:', selectedItem.value ?? 'Not chosen');
 
-    //console.log('Valid email?', isValidEmail);
   };
 
-//Dropdown Handling
-  const dropdownItems = [
-    { label: 'Parent', value: 'parent' },
-    { label: 'Coach', value: 'coach' },
-    { label: 'Director', value: 'director' },
-  ]
-  const [selectedItem, setSelectedItem] = useState(dropdownItems[null]);
-
-  const handleSelect = (item) => {
-    setSelectedItem(item);
-  };
 
 // set up UI
 
@@ -134,8 +144,7 @@ return(
 
   <TextInput
             style={[styles.input, 
-              !isValidEmail && styles.inputERROR,
-              isValidPasswordFormat && passwordInput.length > 0 && styles.inputValid]}
+              !isValidEmail && styles.inputERROR]}
             placeholder= { constants.enterEmail }
             onChangeText={handleNewEmailState}
             value={emailInput}
@@ -154,22 +163,25 @@ return(
   <Text style={styles.label}>{constants.enterPassword}</Text>
 
   {!hasEightChars && (
-        <Text style={styles.errorLabel}>{"At least 8 characters required"}</Text>
+        <Text style={styles.errorLabel}>{constants.eightCharReq}</Text>
       )}
   {!hasOneNum && (
-        <Text style={styles.errorLabel}>{"At least 1 number required"}</Text>
+        <Text style={styles.errorLabel}>{constants.oneNumReq}</Text>
       )}
   {!hasOneUppercase && (
-        <Text style={styles.errorLabel}>{"At least 1 uppercase letter required"}</Text>
+        <Text style={styles.errorLabel}>{constants.oneUppReq}</Text>
       )}
   {!hasOneSpecial && (
-        <Text style={styles.errorLabel}>{"At least 1 special character required. Accepted: @#$!%*?&-_ "}</Text>
+        <Text style={styles.errorLabel}>{constants.oneSpecReq}</Text>
       )}
 
 <View style={styles.inputContainer}>
 <TextInput
-            secureTextEntry={!showPassword}
-            style={[styles.input, !isValidPasswordFormat && styles.inputERROR]}
+            secureTextEntry={showPassword}
+            style={[styles.input, 
+              !isValidPasswordFormat && styles.inputERROR,
+              isValidPasswordFormat && styles.inputValid,
+            !passwordsMatch && styles.inputERROR]}
             width= "80%"
             placeholder= { constants.enterNewPassword }
             onChangeText={handleNewPasswordState}
@@ -192,8 +204,6 @@ return(
 
   </View>
 
-  <View style = {styles.smallBreak}></View>
-
   <Text style={styles.nonBoldSmalllabel}>{constants.passRequirements}</Text>
 
   <View style= {styles.break}/>
@@ -201,18 +211,36 @@ return(
   <View>
   <Text style={styles.label}> {constants.confirmPassword}</Text>
 
+  {!passwordsMatch && (
+        <Text style={styles.errorLabel}>{"Passwords not matching"}</Text>
+      )}
+
+  <View style={styles.inputContainer}>
   <TextInput
-            style={styles.input}
+            secureTextEntry={showPassword}
+            style={[styles.input,
+            !passwordsMatch && styles.inputERROR ]
+            }
             placeholder= { constants.confirmPassword }
             onChangeText={handleNewPasswordConfirmState}
             value={confirmPasswordInput}
+            width= "80%"
             underlineColorAndroid="transparent"
             placeholderTextColor="white"
             color="white"
             ref={passwordConfirmInputRef} 
             //donSubmitEditing={() => passwordInputRef.current.focus()}
     />
+    <TouchableOpacity onPress={togglePasswordVisibility}>
+        <FontAwesome
+          name={showPassword ? 'eye-slash' : 'eye'}
+          size={24}
+          color="gray"
+          margin="10%"
+        />
+      </TouchableOpacity>
 
+  </View>
   </View>
 
   <View style= {styles.break}/>
@@ -221,7 +249,9 @@ return(
 
 <Text style={styles.label}> {constants.iAmA}</Text>
 <Dropdown 
-style= {styles.dropDown}
+style= {[styles.dropDown,
+!userSelectedAnItem && styles.inputERROR
+]}
 items={dropdownItems} 
 selectedItem={selectedItem} 
 onSelect={handleSelect} />
@@ -294,7 +324,7 @@ const styles = StyleSheet.create({
   nonBoldSmalllabel: {
     fontSize: 15,
     textAlign: 'center',
-    marginLeft: '5%',
+    marginLeft: '0%',
     paddingRight: '10%',
     color: 'white',
   },
@@ -350,6 +380,5 @@ divider: {
 inputContainer: {
   flexDirection: 'row',
   alignItems: 'center',
-  padding: 10,
 },
 })

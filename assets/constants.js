@@ -21,6 +21,12 @@ export const constants =
         passRequirements: "Must be 8 or more characters and contain at least 1 capital letter, 1 number, and 1 special character.",
 
         inputValEmail: "Input Valid Email",
+        eightCharReq: "At least 8 characters required",
+        oneNumReq: "At least 1 number required",
+        oneUppReq:"At least 1 uppercase letter required",
+        oneSpecReq:"At least 1 special character required. Accepted: `@#$!%*?&-_",
+        passDoesNotMatch: "This password does not match"
+
         
 }
 
