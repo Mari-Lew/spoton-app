@@ -1,14 +1,19 @@
-// Imports
+// Import(ant)s
   import AsyncStorage from '@react-native-async-storage/async-storage';
   import React, { useState, useEffect } from 'react';
   import { StyleSheet } from 'react-native';
-  import { SignUp } from './Authentication/SignUp/SignUp';
-  import Login from './Authentication/LogIn/Login';
-  import { HomeScreen } from './Home/HomeScreen';
   import { NavigationContainer } from '@react-navigation/native';
   import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+// Custom screens
+  import { SignUp } from './Authentication/SignUp/SignUp';
+  import Login from './Authentication/LogIn/Login';
+  import { HomeScreen } from './Home/HomeScreen';
+  import { ForgotPassword } from './Authentication/ForgotPassword'
 
+// Universal States
+  import { UniversalLoginProvider } from './Universal_States/universalLoginState';
+import Navigator from './Navigation/Navigator';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,27 +59,11 @@ export default function App() {
 const StackNavigator = createNativeStackNavigator();
 
      return (
-      <NavigationContainer>
-        <StackNavigator.Navigator>
-        <StackNavigator.Screen
-          name="Home"
-          component={HomeScreen}
-        />
-
-        <StackNavigator.Screen
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        />
-        
-        <StackNavigator.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{ headerShown: false }}
-        />
-
-        </StackNavigator.Navigator>
+      <UniversalLoginProvider>
+        <NavigationContainer>
+        <Navigator />
       </NavigationContainer>
+        </UniversalLoginProvider>
     );
 
 }

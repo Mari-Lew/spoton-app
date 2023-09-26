@@ -3,32 +3,39 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Login from '../Authentication/LogIn/Login';
+import { ForgotPassword } from '../Authentication/ForgotPassword';
 import { SignUp } from '../Authentication/SignUp/SignUp';
 import { HomeScreen } from '../Home/HomeScreen';
 
-const StackNavigator = createStackNavigator();
+const StackNavigator = createNativeStackNavigator();
 
 const Navigator = () => {
     return (
-      <NavigationContainer>
-        <Stack.Navigator>
-        <Stack.Screen
+      <StackNavigator.Navigator>
+        <StackNavigator.Screen
           name="Home"
           component={HomeScreen}
         />
 
-        <Stack.Screen
+        <StackNavigator.Screen
           name="Login"
           component={Login}
-        />
-        
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
+          options={{ headerShown: false }}
         />
 
-        </Stack.Navigator>
-      </NavigationContainer>
+        <StackNavigator.Screen
+          name="Forgot Password"
+          component={ForgotPassword}
+          options={{ headerShown: false }}
+        />
+
+        <StackNavigator.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{ headerShown: false }}
+        />
+
+        </StackNavigator.Navigator>
     );
   }
   
