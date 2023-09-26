@@ -3,8 +3,11 @@
   import React, { useState, useEffect } from 'react';
   import { StyleSheet } from 'react-native';
   import { SignUp } from './Authentication/SignUp/SignUp';
+  import Login from './Authentication/LogIn/Login';
+  import { HomeScreen } from './Home/HomeScreen';
+  import { NavigationContainer } from '@react-navigation/native';
+  import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-  
 
 
 export default function App() {
@@ -48,11 +51,32 @@ export default function App() {
 
 //----------------------------------------------------------------- Above will be refactored later 
 
-//const Stack = createStackNavigator();
+const StackNavigator = createNativeStackNavigator();
 
-return (
-  <SignUp/>
-)
+     return (
+      <NavigationContainer>
+        <StackNavigator.Navigator>
+        <StackNavigator.Screen
+          name="Home"
+          component={HomeScreen}
+        />
+
+        <StackNavigator.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+        
+        <StackNavigator.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{ headerShown: false }}
+        />
+
+        </StackNavigator.Navigator>
+      </NavigationContainer>
+    );
+
 }
 
 const styles = StyleSheet.create({

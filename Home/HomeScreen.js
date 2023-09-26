@@ -1,21 +1,29 @@
 import React, {  } from 'react';
-import { View, Text } from 'react-native';
-import { Login } from './Authentication/LogIn/Login';
 import { NavigationContainer } from '@react-navigation/native';
-import App from '../App';
+import { View,KeyboardAvoidingView, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
 
-export function HomeScreen ( { navigation })
+export const HomeScreen = ( { navigation }) =>
 {
+  const isLoggedIn = false;
+
     return (
-        <View style={App.styles.container}>
-        {App.isLoggedIn ? (
+        <View style={styles.container}>
+        {isLoggedIn ? (
           // Render the main content when the user is logged in
           <Text>"Nothing here yet"</Text>
         ) : (
           // Render the login page when the user is not logged in
-            <Login onLogin={handleLogin} />
-            //<SignUp />
+            <View>
+
+            </View>
         )}
       </View>
     )
+    
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});;

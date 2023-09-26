@@ -318,7 +318,7 @@ onSelect={(item) => handleSelect(item)} />
 <View style={styles.divider}/>
 
 <View style={{ marginTop: 10 }}>
-  <TouchableOpacity onPress={() => {} }>
+  <TouchableOpacity onPress={() => {navigation.navigate('Login')} }>
     <Text style={styles.nonBoldSmalllabel}>Back to Log in</Text>
   </TouchableOpacity>
 </View>
