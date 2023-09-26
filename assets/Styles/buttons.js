@@ -23,6 +23,24 @@ export const buttons = StyleSheet.create({
       shadowRadius: 2,
       elevation: 3
     },
+    disabledButtonStyle: {
+      width: '80%',
+      backgroundColor: 'rgba(255, 255, 255, 0.3)', // background color
+      borderRadius: 100, // Rounded corners
+      paddingVertical: 15, // Vertical padding
+      paddingHorizontal: 20, // Horizontal padding
+      margin: 10,
+      alignItems: 'center', // Center text horizontally
+      justifyContent: 'center', // Center text vertically
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
+      elevation: 3
+    },
 
     buttonContainer: {
       flexDirection: 'column', // Arrange buttons horizontally

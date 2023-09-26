@@ -1,4 +1,4 @@
-import React, { useState, useRef  } from 'react';
+import React, { useState, useRef, useEffect  } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { FontAwesome } from 'react-native-vector-icons';
 import { buttons } from '../../assets/Styles/buttons';
@@ -19,21 +19,21 @@ export const SignUp = ({ navigation }) => {
   const [isValidEmail, setIsValidEmail] = useState(true); // if the user input a correct email
   const [isValidPasswordFormat, setIsValidPasswordFormat] = useState(true); // if the password meets requirements
   const [passwordsMatch, setIsValidPasswordsMatch] = useState(true); // if the passwords matched when re-entered
-  const [hasEightChars, setHasEightChars] = useState(true);
-  const [hasOneUppercase, setHasOneUpperCase] = useState(true);
-  const [hasOneNum, sethasOneNum] = useState(true);
-  const [hasOneSpecial, sethasOneSpecial] = useState(true);
+  const [hasEightChars, setHasEightChars] = useState(true); // check if the password is 8 characters long
+  const [hasOneUppercase, setHasOneUpperCase] = useState(true); // check if the password has one uppercase Letter
+  const [hasOneNum, sethasOneNum] = useState(true); // check if the password has at least one number
+  const [hasOneSpecial, sethasOneSpecial] = useState(true); // check if the password has at least one special character
 
   const [signUpReady, setSignUpReady] = useState(false);
 
 //Dropdown Handling
   const dropdownItems = [
     { label: 'Parent', value: 'parent' },
-    { label: 'Coach', value: 'coach' },
+    { label: 'Coach', value: 'coach' }, 
     { label: 'Director', value: 'director' },
   ]
-  const [selectedItem, setSelectedItem] = useState(dropdownItems[null]);
-  const [userSelectedAnItem, setUserSelectedAnItem] = useState(true); // if they selected an item from the drop down
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [userSelectedAnItem, setUserSelectedAnItem] = useState(false); // if they selected an item from the drop down
 
 // State handlers
   const handleNewEmailState = (text) => {
@@ -62,12 +62,50 @@ export const SignUp = ({ navigation }) => {
 
   const handleSelect = (item) => {
     setSelectedItem(item);
-    setUserSelectedAnItem(true);
   };
 
-  const canSignIn = () =>
+  //Use Effect for tracking variables; want these tracked to know when the sign up button can be enabled
+    useEffect(() => {
+      // track selectedItem
+      console.log("Item selected: ", selectedItem);
+      console.log("Was Item selected (set to true above): ", userSelectedAnItem);
+    }, [selectedItem]);
+
+    useEffect(() => {
+      // track isValidEmail
+      console.log('isValidEmail changed:', isValidEmail);
+    }, [isValidEmail]);
+    
+    useEffect(() => {
+      // track isValidPasswordFormat
+      console.log('isValidPasswordFormat changed:', isValidPasswordFormat);
+    }, [isValidPasswordFormat]);
+    
+    useEffect(() => {
+      // This effect will run whenever passwordsMatch changes
+      console.log('passwordsMatch changed:', passwordsMatch);
+    }, [passwordsMatch]);
+    
+    useEffect(() => {
+      // This effect will run whenever userSelectedAnItem changes
+      console.log('userSelectedAnItem changed:', userSelectedAnItem);
+    }, [userSelectedAnItem]);
+
+  const canSignUp = () =>
   {
-    //check every error handling variable and make sure all of them are true
+      if(selectedItem != null)
+      {
+        console.log("Test: " + userSelectedAnItem);
+      }
+
+    if (isValidEmail && isValidPasswordFormat && passwordsMatch && userSelectedAnItem)
+    {
+      setSignUpReady(true);
+    }
+    else
+    {
+      setSignUpReady(false);
+    }
   }
 
   //Validation Checking
@@ -83,7 +121,6 @@ export const SignUp = ({ navigation }) => {
     {
       const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{1,4}$/i;
 
-      //console.log('Valid email check returns: ' + emailRegex.test(input));
       return emailRegex.test(input);
     }
 
@@ -108,15 +145,14 @@ export const SignUp = ({ navigation }) => {
 
   //Sign up logic
   const signUpFun = () => {
-    if (!isValidEmail || !isValidPasswordFormat || !passwordsMatch) {
-      console.log('Please correct the form errors');
-      return;
+    if(canSignUp())
+    {
+      //something
+      console.log('Email: ', emailInput);
+      console.log('Password: ', passwordInput);
+      console.log('Password Confirm: ', confirmPasswordInput);
+      console.log('I am a:', selectedItem.value ?? 'Not chosen');
     }
-
-    console.log('Email: ', emailInput);
-    console.log('Password: ', passwordInput);
-    console.log('Password Confirm: ', confirmPasswordInput);
-    console.log('I am a:', selectedItem.value ?? 'Not chosen');
 
   };
 
@@ -254,16 +290,25 @@ style= {[styles.dropDown,
 ]}
 items={dropdownItems} 
 selectedItem={selectedItem} 
-onSelect={handleSelect} />
+onSelect={(item) => handleSelect(item)} />
 
 </View>
 
   <View style= {styles.break}/>
 
 <View>
-<TouchableOpacity style={buttons.buttonStyle} onPress={signUpFun}>
+{
+  signUpReady ? (
+    <TouchableOpacity style={buttons.buttonStyle} onPress={signUpFun}>
             <Text style={buttons.text}>{constants.signUp}</Text>
           </TouchableOpacity>
+  ) : (
+    <TouchableOpacity style={buttons.disabledButtonStyle} disabled>
+            <Text style={buttons.text}>{constants.signUp}</Text>
+          </TouchableOpacity>
+  )
+
+}
 </View>
 
 <View style= {styles.break}/>
@@ -272,7 +317,7 @@ onSelect={handleSelect} />
 <View style={styles.divider}/>
 
 <View style={{ marginTop: 10 }}>
-  <TouchableOpacity onPress={signUpFun}>
+  <TouchableOpacity onPress={() => {} }>
     <Text style={styles.nonBoldSmalllabel}>Back to Log in</Text>
   </TouchableOpacity>
 </View>

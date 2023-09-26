@@ -6,12 +6,10 @@ import {
 const Dropdown = ({ items, selectedItem, onSelect }) => {
 const [isOpen, setIsOpen] = useState(false);
 
+
 const toggleDropdown = () => {
     setIsOpen(!isOpen);
 };
-
-
-
   return (
       <View>
       <TouchableOpacity style= {styles.dropdownButtonStyle}  onPress={toggleDropdown}>
@@ -28,14 +26,14 @@ const toggleDropdown = () => {
         <View style={styles.modalContainer}>
           <View style={styles.dropdownContent}>
             <FlatList
-              data={items}
-              keyExtractor={(item) => item.value}
+              data={items} // items that we pass in when we call it later
+              keyExtractor={(item) => item.value} // extract key at an index
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={styles.listItem}
                   onPress={() => {
-                    onSelect(item);
-                    setIsOpen(false);
+                    onSelect(item); // executes function
+                    setIsOpen(false); // closes it
                   }}>
                   <Text style={styles.listItemText}>{item.label}</Text>
                   <View style={styles.separator} />
@@ -82,7 +80,6 @@ const styles = StyleSheet.create({
     padding:10,
     fontSize: 20,
     borderWidth: 1,
-    borderRadius: 100,
     borderColor: 'rgba(255, 255, 255, 0.5)',
     alignItems: 'center',
     justifyContent: 'center',
