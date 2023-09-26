@@ -1,9 +1,10 @@
-  import React, { useState, useRef  } from 'react';
-  import { View, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-  import { buttons } from '../../assets/Styles/buttons';
-  import { constants } from '../../assets/constants';
+import React, { useState, useRef, useEffect } from 'react';
+import { View,KeyboardAvoidingView, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
+import { constants } from '../../assets/constants';
+import { buttons } from '../../assets/Styles/buttons';
+  
 
-export function Login({ navigation }) {
+export function Login ({ navigation }) {
   // Variables and Such
     const [emailInput, setEmailText] = useState(''); // State to hold user input
     const [passwordInput, setPasswordText] = useState(''); // State to hold user input
