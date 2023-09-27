@@ -4,11 +4,15 @@ import { View,KeyboardAvoidingView, Image, Text, ImageBackground, TouchableOpaci
 import { UniversalLoginProvider, useLoginState, updateIsLoggedIn } from '../Universal_States/universalLoginState';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import Login from '../Authentication/LogIn/Login';
+import DataList from './DataScrollList';
+import { useDataPoints, addDataPoint } from './handlePitchData';
 
 export const HomeScreen = ( ) =>
 {
   const { updateIsLoggedIn } = useLoginState();
   const navigation = useNavigation();
+  const { dataPoints, addDataPoint } = useDataPoints();
+  
 
   const logOut = () => {
     // for when the user Logs out
@@ -32,8 +36,13 @@ export const HomeScreen = ( ) =>
           <View style ={styles.container}>
             <TouchableOpacity  onPress={logOut}> 
             <Text style={styles.nonBoldSmalllabel}>Log Out</Text>
-            
             </TouchableOpacity>
+
+            <View style={styles.dataContainer}>
+            {/* Display the scrollable data list */}
+            <DataList data={dataPoints} />
+            </View>
+
             </View>
         ) : (
               <Login/> // User isnt logged in. Render the login screen
@@ -45,11 +54,20 @@ export const HomeScreen = ( ) =>
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-  flex: 1,
-  resizeMode: 'cover',
-  justifyContent: 'center',
-  width: '100%',
-  height: '100%',
-  },
+    flex: 1,
+    backgroundColor: 'blue',
+    position: 'relative'
+    },
+  dataContainer:
+  {
+    position: 'absolute',
+    width: '100%',
+    height: '50%',
+    backgroundColor: 'white',
+    borderTopLeftRadius: '30%',
+    borderTopRightRadius: '30%',
+    bottom: 0, // Position it at the bottom
+    left: 0, // Position it at the left edge
+    right: 0, // Position it at the right edge
+  }
 });;
