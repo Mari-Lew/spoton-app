@@ -2,10 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View,KeyboardAvoidingView, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
 import { constants } from '../../assets/constants';
 import { buttons } from '../../assets/Styles/buttons';
+import { useNavigation, CommonActions } from '@react-navigation/native';
+import { useLoginState, updateIsLoggedIn } from '../../Universal_States/universalLoginState';
   
 
-export function Login ({ navigation }) {
+export function Login () {
   // Variables and Such
+    const navigation = useNavigation();
+    const { updateIsLoggedIn } = useLoginState();
+
     const [emailInput, setEmailText] = useState(''); // State to hold user input
     const [passwordInput, setPasswordText] = useState(''); // State to hold user input
 
@@ -31,7 +36,15 @@ export function Login ({ navigation }) {
     console.log('Email: ', emailInput);
     console.log('Password: ', passwordInput);
 
-    navigation.navigate('Home')
+    updateIsLoggedIn(true);
+    navigation.dispatch(
+      CommonActions.reset(
+        {
+          index: 0, // Index of the home screen
+          routes: [{ name: 'Home' }],
+        }
+      )
+    )
   };
 
 

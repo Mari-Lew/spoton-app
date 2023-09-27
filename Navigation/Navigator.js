@@ -12,11 +12,6 @@ const StackNavigator = createNativeStackNavigator();
 const Navigator = () => {
     return (
       <StackNavigator.Navigator>
-        <StackNavigator.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
 
         <StackNavigator.Screen
           name="Login"
@@ -33,6 +28,12 @@ const Navigator = () => {
         <StackNavigator.Screen
           name="SignUp"
           component={SignUp}
+          options={{ headerShown: false }}
+        />
+
+        <StackNavigator.Screen
+          name="Home"
+          component={HomeScreen}
           options={{ headerShown: false }}
         />
 

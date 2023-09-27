@@ -1,21 +1,42 @@
 import React, {  } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { View,KeyboardAvoidingView, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
-import { UniversalLoginProvider, useLoginState } from '../Universal_States/universalLoginState';
+import { UniversalLoginProvider, useLoginState, updateIsLoggedIn } from '../Universal_States/universalLoginState';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import Login from '../Authentication/LogIn/Login';
 
-export const HomeScreen = ( { navigation }) =>
+export const HomeScreen = ( ) =>
 {
-  const { isLoggedIn } = useLoginState();
+  const { updateIsLoggedIn } = useLoginState();
+  const navigation = useNavigation();
+
+  const logOut = () => {
+    // for when the user Logs out
+    updateIsLoggedIn(false);
+    
+    // reset the navigation stack
+    navigation.dispatch(
+      CommonActions.reset(
+        {
+          index: 0, // Index of the home screen
+          routes: [{ name: 'Login' }],
+        }
+      )
+    )
+  };
 
     return (
         <View style={styles.container}>
-        {isLoggedIn ? (
+        {updateIsLoggedIn ? (
           // Render the main content when the user is logged in
-          <Text>"Nothing here yet"</Text>
+          <View style ={styles.container}>
+            <TouchableOpacity  onPress={logOut}> 
+            <Text style={styles.nonBoldSmalllabel}>Log Out</Text>
+            
+            </TouchableOpacity>
+            </View>
         ) : (
-          // Render the login page when the user is not logged in
-              <Login />
+              <Login/> // User isnt logged in. Render the login screen
         )}
       </View>
     )
@@ -24,6 +45,11 @@ export const HomeScreen = ( { navigation }) =>
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: 'column',
+  flex: 1,
+  resizeMode: 'cover',
+  justifyContent: 'center',
+  width: '100%',
+  height: '100%',
   },
 });;

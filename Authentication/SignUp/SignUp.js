@@ -4,9 +4,12 @@ import { FontAwesome } from 'react-native-vector-icons';
 import { buttons } from '../../assets/Styles/buttons';
 import { constants } from '../../assets/constants';
 import Dropdown from './Dropdown';
+import { useNavigation } from '@react-navigation/native';
 
-export const SignUp = ({ navigation }) => {
+export const SignUp = () => {
 // Variables and such
+  const navigation = useNavigation();
+
   const [emailInput, setNewEmail] = useState(''); // State to hold the email the user will sign up with
   const [passwordInput, setNewPassword] = useState(''); // State to hold password for the user
   const [confirmPasswordInput, setPasswordConfirmation] = useState(''); // State to hold password for the user to check
@@ -318,7 +321,7 @@ onSelect={(item) => handleSelect(item)} />
 <View style={styles.divider}/>
 
 <View style={{ marginTop: 10 }}>
-  <TouchableOpacity onPress={() => {navigation.navigate('Login')} }>
+  <TouchableOpacity onPress={() => {navigation.goBack()} }>
     <Text style={styles.nonBoldSmalllabel}>Back to Log in</Text>
   </TouchableOpacity>
 </View>
@@ -371,7 +374,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     marginLeft: '0%',
-    paddingRight: '10%',
     color: 'white',
   },
   errorLabel: {

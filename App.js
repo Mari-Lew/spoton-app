@@ -13,6 +13,7 @@
 
 // Universal States
   import { UniversalLoginProvider } from './Universal_States/universalLoginState';
+import Navigator from './Navigation/Navigator';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -60,34 +61,11 @@ const StackNavigator = createNativeStackNavigator();
      return (
       <UniversalLoginProvider>
         <NavigationContainer>
-        <StackNavigator.Navigator>
-        <StackNavigator.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
 
-        <StackNavigator.Screen
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        />
+        <Navigator />
 
-        <StackNavigator.Screen
-          name="Forgot Password"
-          component={ForgotPassword}
-          options={{ headerShown: false }}
-        />
-
-        <StackNavigator.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{ headerShown: false }}
-        />
-
-        </StackNavigator.Navigator>
       </NavigationContainer>
-        </UniversalLoginProvider>
+    </UniversalLoginProvider>
     );
 
 }
