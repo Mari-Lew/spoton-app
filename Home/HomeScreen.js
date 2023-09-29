@@ -12,6 +12,11 @@ export const HomeScreen = ( ) =>
   const { updateIsLoggedIn } = useLoginState();
   const navigation = useNavigation();
   const { dataPoints, addDataPoint } = useDataPoints();
+
+//Arrays ; will eventually be grabbed from the pitcher instead of a set list.
+  const pitchTypes = ['Fastball', 'Slider', 'Curveball', 'Changeup', 'Other'];
+  const locationNums = ['1', '2', '3', '4', '5','6','7','8','9'];
+  const hitSpots = ['Yes', 'No'];
   
 
   const logOut = () => {
@@ -34,10 +39,13 @@ export const HomeScreen = ( ) =>
         {updateIsLoggedIn ? (
           // Render the main content when the user is logged in
           <View style ={styles.container}>
-            <TouchableOpacity  onPress={logOut}> 
+            
+            <View style={styles.mainSection}>
+              <TouchableOpacity  onPress={logOut}> 
             <Text style={styles.nonBoldSmalllabel}>Log Out</Text>
             </TouchableOpacity>
-
+            </View>
+            
             <View style={styles.dataContainer}>
             {/* Display the scrollable data list */}
             <DataList data={dataPoints} />
@@ -45,7 +53,7 @@ export const HomeScreen = ( ) =>
 
             </View>
         ) : (
-              <Login/> // User isnt logged in. Render the login screen
+              <Login/> 
         )}
       </View>
     )
@@ -55,9 +63,18 @@ export const HomeScreen = ( ) =>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
-    position: 'relative'
+    backgroundColor: 'lightgrey',
     },
+    mainSection: {
+      justifyContent: 'center',
+      top: 0, // Position it at the bottom
+      left: 0, // Position it at the left edge
+      right: 0, // Position it at the right edge
+      padding: 10,
+      height: '50%',
+      backgroundColor: 'lightblue'
+    },
+
   dataContainer:
   {
     position: 'absolute',
@@ -66,6 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: '30%',
     borderTopRightRadius: '30%',
+    padding: 10,
     bottom: 0, // Position it at the bottom
     left: 0, // Position it at the left edge
     right: 0, // Position it at the right edge

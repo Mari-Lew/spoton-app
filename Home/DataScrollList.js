@@ -5,13 +5,15 @@ import { useDataPoints } from './handlePitchData';
 
 
 const HeaderOne = () => {
+  const { addDataPoint } = useDataPoints();
+
     return (
       <View style={styles.headerOneContainer}>
         <View style = {styles.headerOneName}>
-        <Text style={styles.pitcherName}>Pitchers Name Here</Text>
+        <TouchableOpacity><Text style={styles.pitcherName}>Pitchers Name Here</Text></TouchableOpacity>
         </View>
         <View style = {styles.headerOneAddPitch}>
-        <TouchableOpacity onPress={ () => {}}>
+        <TouchableOpacity onPress={addDataPoint}>
         <Ionicons
           name={'add-circle'}
           size={40}
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
     dataItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        padding:5
         },
     dataText: {
         fontSize: 16,

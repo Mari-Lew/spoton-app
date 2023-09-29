@@ -118,7 +118,7 @@ return (
       </View>
 
       <View style={styles.forgotPassword}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {navigation.navigate('ForgotPassword')}}>
           <Text
           style={styles.whiteText}
           >{constants.forgotPass}</Text>
@@ -215,6 +215,7 @@ secondHalf: {
   alignItems: 'center',
   justifyContent: 'flex-start'
 },
+
 
 });
   

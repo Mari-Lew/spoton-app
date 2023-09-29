@@ -20,7 +20,7 @@ const Navigator = () => {
         />
 
         <StackNavigator.Screen
-          name="Forgot Password"
+          name="ForgotPassword"
           component={ForgotPassword}
           options={{ headerShown: false }}
         />

@@ -1,14 +1,16 @@
 import React, { useState, useRef, useEffect  } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 
-export function ForgotPassword({navigation}) {
+export function ForgotPassword() {
+    const navigation = useNavigation();
 // constants to keep track of
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
 
   const handleResetPassword = () => {
     if (email) {
-      setMessage(`Password reset request sent to ${email}`);
+      setMessage(`If there is an account associated with: ${email}, a password reset request has been sent.`);
     } else {
       setMessage('Please enter your email address');
     }
@@ -28,6 +30,10 @@ export function ForgotPassword({navigation}) {
         <Text style={styles.buttonText}>Reset Password</Text>
       </TouchableOpacity>
       <Text style={styles.message}>{message}</Text>
+
+      <View style={styles.break}/>
+
+      <TouchableOpacity onPress={() => {navigation.goBack()}}><Text>Return to Login</Text></TouchableOpacity>
     </View>
   );
 }
@@ -67,5 +73,19 @@ const styles = StyleSheet.create({
       marginTop: 20,
       fontSize: 16,
       color: 'green',
+    },
+    background: {
+      flex: 1, // Makes the image cover the entire screen
+      resizeMode: 'cover', // Resizes the image to cover the container
+    },
+    overlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.6)', // You can add a semi-transparent overlay if needed
+      justifyContent: 'center',
+      alignItems: 'center',
+      
+    },
+  break:{
+    margin: 10
     },
   });
