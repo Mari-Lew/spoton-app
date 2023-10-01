@@ -1,11 +1,12 @@
 import React, {  } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { View,KeyboardAvoidingView, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
-import { UniversalLoginProvider, useLoginState, updateIsLoggedIn } from '../Universal_States/universalLoginState';
+import { View,Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useLoginState } from '../Universal_States/universalLoginState';
 import { useNavigation, CommonActions } from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/native';
+
 import Login from '../Authentication/LogIn/Login';
 import DataList from './DataScrollList';
-import { useDataPoints, addDataPoint } from './handlePitchData';
+import { useDataPoints } from './handlePitchData';
 
 export const HomeScreen = ( ) =>
 {
@@ -38,9 +39,18 @@ export const HomeScreen = ( ) =>
         <View style={styles.container}>
         {updateIsLoggedIn ? (
           // Render the main content when the user is logged in
-          <View style ={styles.container}>
-            
-            <View style={styles.mainSection}>
+          <View style ={styles.container}><View style={styles.mainSection}>
+              <View>
+      <TouchableOpacity
+        onPress={() => {
+          //navigation.dispatch(DrawerActions.openDrawer());
+        }}
+      >
+        <Text>Hamburger Icon</Text>
+      </TouchableOpacity>
+      </View>
+              
+              
               <TouchableOpacity  onPress={logOut}> 
             <Text style={styles.nonBoldSmalllabel}>Log Out</Text>
             </TouchableOpacity>
@@ -87,5 +97,6 @@ const styles = StyleSheet.create({
     bottom: 0, // Position it at the bottom
     left: 0, // Position it at the left edge
     right: 0, // Position it at the right edge
-  }
+  },
+  
 });;

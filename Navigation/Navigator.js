@@ -6,6 +6,7 @@ import { Login } from '../Authentication/LogIn/Login';
 import { ForgotPassword } from '../Authentication/ForgotPassword';
 import { SignUp } from '../Authentication/SignUp/SignUp';
 import { HomeScreen } from '../Home/HomeScreen';
+import SideMenuNavigator from './SideMenu/SideMenuNavigator';
 
 const StackNavigator = createNativeStackNavigator();
 
@@ -40,5 +41,12 @@ const Navigator = () => {
         </StackNavigator.Navigator>
     );
   }
+
+  /**
+   * <StackNavigator.Screen
+          name="DrawerNavigator"
+          component={SideMenuNavigator}
+        />
+   */
   
   export default Navigator;

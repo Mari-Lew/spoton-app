@@ -13,7 +13,8 @@
 
 // Universal States
   import { UniversalLoginProvider } from './Universal_States/universalLoginState';
-import Navigator from './Navigation/Navigator';
+  import Navigator from './Navigation/Navigator';
+
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,8 +56,6 @@ export default function App() {
   };
 
 //----------------------------------------------------------------- Above will be refactored later 
-
-const StackNavigator = createNativeStackNavigator();
 
      return (
       <UniversalLoginProvider>

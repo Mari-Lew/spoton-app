@@ -160,7 +160,7 @@ background: {
 },
 overlay: {
   flex: 1,
-  backgroundColor: 'rgba(0, 0, 0, 0.6)', // You can add a semi-transparent overlay if needed
+  backgroundColor: 'rgba(0, 0, 0, 0.7)', // You can add a semi-transparent overlay if needed
   justifyContent: 'center',
   alignItems: 'center',
   
