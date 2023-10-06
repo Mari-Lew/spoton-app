@@ -20,7 +20,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "useAndroidX": true,
+        "hermesEnabled": false 
       },
       "package": "com.soleibee_studio.spotonapp"
     },

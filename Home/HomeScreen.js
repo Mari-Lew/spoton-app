@@ -1,8 +1,7 @@
 import React, {  } from 'react';
 import { View,Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useLoginState } from '../Universal_States/universalLoginState';
-import { useNavigation, CommonActions } from '@react-navigation/native';
-import { DrawerActions } from '@react-navigation/native';
+import { useNavigation, CommonActions, DrawerActions } from '@react-navigation/native';
 
 import Login from '../Authentication/LogIn/Login';
 import DataList from './DataScrollList';
@@ -43,7 +42,9 @@ export const HomeScreen = ( ) =>
               <View>
       <TouchableOpacity
         onPress={() => {
-          //navigation.dispatch(DrawerActions.openDrawer());
+          console.log('Navigation Prop:', navigation);
+
+          navigation.dispatch(DrawerActions.toggleDrawer());
         }}
       >
         <Text>Hamburger Icon</Text>

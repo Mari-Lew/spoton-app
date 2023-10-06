@@ -34,19 +34,21 @@ const Navigator = () => {
 
         <StackNavigator.Screen
           name="Home"
-          component={HomeScreen}
+          component={SideMenuNavigator}
           options={{ headerShown: false }}
         />
 
         </StackNavigator.Navigator>
     );
   }
+  
 
   /**
-   * <StackNavigator.Screen
+   * 
+        <StackNavigator.Screen
           name="DrawerNavigator"
           component={SideMenuNavigator}
         />
    */
-  
+
   export default Navigator;
