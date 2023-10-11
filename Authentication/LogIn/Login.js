@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View,KeyboardAvoidingView, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
-import { constants } from '../../assets/constants';
+import { constants } from '../../Constants/constants';
 import { buttons } from '../../assets/Styles/buttons';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { useLoginState, updateIsLoggedIn } from '../../Universal_States/universalLoginState';

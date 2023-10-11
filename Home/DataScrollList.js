@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, Text, StyleSheet, TouchableOpacity, Picker } from 'react-native';
+import { FlatList, View, Text, StyleSheet, TouchableOpacity, Picker, ScrollView } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import { useDataPoints } from './handlePitchData';
 
@@ -44,20 +44,18 @@ const HeaderTwo = () => {
         <HeaderOne />
         <HeaderTwo />
         
-        <FlatList
-          data={data}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <View style={[
-                styles.dataItem,
-                { backgroundColor: index % 2 === 0 ? 'white' : '#ECECEC' }]}>
-              <Text style={styles.dataText}>{item.pitchType}</Text>
-              <Text style={styles.dataText}>{item.targetSpot}</Text>
-              <Text style={styles.dataText}>{item.didHit}</Text>
-            </View>
-          )}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
-        />
+        <ScrollView style={styles.scrollView}>
+        {data.map((item, index) => (
+          <View key={index} style={[
+            styles.dataItem,
+            { backgroundColor: index % 2 === 0 ? 'white' : '#ECECEC' }
+          ]}>
+            <Text style={styles.dataText}>{item.pitchType}</Text>
+            <Text style={styles.dataText}>{item.targetSpot}</Text>
+            <Text style={styles.dataText}>{item.didHit}</Text>
+          </View>
+        ))}
+      </ScrollView>
       </View>
     );
   };
@@ -118,6 +116,9 @@ const styles = StyleSheet.create({
     separator: {
         borderBottomWidth: 1,
         borderBottomColor: '#ECECEC',
+        },
+        scrollView: {
+          height: '100%'
         },
 
 });

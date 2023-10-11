@@ -6,6 +6,7 @@ import { useNavigation, CommonActions, DrawerActions } from '@react-navigation/n
 import Login from '../Authentication/LogIn/Login';
 import DataList from './DataScrollList';
 import { useDataPoints } from './handlePitchData';
+import Header from '../Components/Header';
 
 export const HomeScreen = ( ) =>
 {
@@ -17,7 +18,6 @@ export const HomeScreen = ( ) =>
   const pitchTypes = ['Fastball', 'Slider', 'Curveball', 'Changeup', 'Other'];
   const locationNums = ['1', '2', '3', '4', '5','6','7','8','9'];
   const hitSpots = ['Yes', 'No'];
-  
 
   const logOut = () => {
     // for when the user Logs out
@@ -40,15 +40,6 @@ export const HomeScreen = ( ) =>
           // Render the main content when the user is logged in
           <View style ={styles.container}><View style={styles.mainSection}>
               <View>
-      <TouchableOpacity
-        onPress={() => {
-          console.log('Navigation Prop:', navigation);
-
-          navigation.dispatch(DrawerActions.toggleDrawer());
-        }}
-      >
-        <Text>Hamburger Icon</Text>
-      </TouchableOpacity>
       </View>
               
               

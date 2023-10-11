@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect  } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { FontAwesome } from 'react-native-vector-icons';
 import { buttons } from '../../assets/Styles/buttons';
-import { constants } from '../../assets/constants';
+import { constants } from '../../Constants/constants';
 import Dropdown from './Dropdown';
 import { useNavigation } from '@react-navigation/native';
 
