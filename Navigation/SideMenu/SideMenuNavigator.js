@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { DrawerItem, createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 //Screens
 import { HomeScreen } from '../../Home/HomeScreen';
@@ -11,7 +12,7 @@ import SettingsScreen from '../../Screens/Settings';
 //Aesthetics
 import { AntDesign, Ionicons, MaterialCommunityIcons  } from '@expo/vector-icons';
 
-const DrawerNavigator = createDrawerNavigator();
+const DrawerNavigator = createBottomTabNavigator();
 
 const SideMenuNavigator = () => {
     return (
@@ -19,9 +20,10 @@ const SideMenuNavigator = () => {
             initialRouteName="Home_Route">
                 <DrawerNavigator.Screen 
                 name='Home' 
+                swipeEnabled={true}
                 component={HomeScreen}
                 options={{
-          drawerIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }) => (
             <AntDesign name="home" size={size} color={color} />
           ),
         }}
@@ -30,7 +32,7 @@ const SideMenuNavigator = () => {
                 name='Profile' 
                 component={ProfileScreen}
                 options={{
-                    drawerIcon: ({ color, size }) => (
+                  tabBarIcon: ({ color, size }) => (
                       <AntDesign name="user" size={size} color={color} /> // Profile icon
                     ),
                   }}/>
@@ -38,7 +40,7 @@ const SideMenuNavigator = () => {
                 name='Settings' 
                 component={SettingsScreen}
                 options={{
-                    drawerIcon: ({ color, size }) => (
+                  tabBarIcon: ({ color, size }) => (
                       <AntDesign name="setting" size={size} color={color} /> // Settings icon
                     ),
                   }}/>
