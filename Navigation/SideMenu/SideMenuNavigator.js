@@ -22,6 +22,7 @@ const SideMenuNavigator = () => {
                 name='Home' 
                 component={HomeScreen}
                 options={{
+                  headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="home" size={size} color={color} />
           ),
@@ -31,6 +32,7 @@ const SideMenuNavigator = () => {
                 name='Profile' 
                 component={ProfileScreen}
                 options={{
+                  headerShown: false,
                   tabBarIcon: ({ color, size }) => (
                       <AntDesign name="user" size={size} color={color} /> // Profile icon
                     ),
@@ -39,6 +41,7 @@ const SideMenuNavigator = () => {
                 name='Settings' 
                 component={SettingsScreen}
                 options={{
+                  headerShown: false,
                   tabBarIcon: ({ color, size }) => (
                       <AntDesign name="setting" size={size} color={color} /> // Settings icon
                     ),

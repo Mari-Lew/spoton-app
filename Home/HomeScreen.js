@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     bottom: 0, // Position it at the bottom
     left: 0, // Position it at the left edge
     right: 0, // Position it at the right edge
+    
   },
   
 });;
