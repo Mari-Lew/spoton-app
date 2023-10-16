@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View,Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, CommonActions, DrawerActions } from '@react-navigation/native';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -20,10 +20,15 @@ export const HomeScreen = ( ) =>
 
 // for the swipeable bottom sheet
   const bottomSheetRef = useRef(null);
+//For Placing the dot 
+  const [clickedCoordinates, setClickedCoordinates] = useState(null);
   
-  const handlePress = () => {
-    // Handle the press event
-    console.log('Square Pressed!');
+  const handlePress = (event) => {
+    const { locationX, locationY } = event.nativeEvent;
+    const coordinates = { x: locationX, y: locationY };
+    setClickedCoordinates(coordinates);
+
+    console.log('Clicked at:', coordinates, "Box Number: ", 0);
   };
 
     return (

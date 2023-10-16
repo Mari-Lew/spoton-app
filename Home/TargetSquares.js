@@ -1,17 +1,127 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View,Text, TouchableOpacity, StyleSheet, TouchableHighlight } from 'react-native';
 import { useNavigation, CommonActions, DrawerActions } from '@react-navigation/native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+export function TargetSquares ({ onPress })
+{
+    const [clickedCoordinates, setClickedCoordinates] = useState(null);
 
+  const handlePress = (event, boxNumber) => {
+    const { locationX, locationY } = event.nativeEvent;
+    const coordinates = { x: locationX, y: locationY };
+    setClickedCoordinates(coordinates);
 
-const handlePress = (boxNumber) => {
-    console.log(`Box ${boxNumber} Pressed!`);
+    console.log('Clicked at:', coordinates, "Box Number: ", boxNumber);
   };
 
-export const TargetSquares = ({ onPress }) =>
-{
+  // The variations of the target squares go here. Only 3 possible choices: 4,6,9
+  const FourBoxes = () =>
+  {
+      return (
+          <View style={styles.fourBoxContainer}>
+          {/* Top Row */}
+          <View style={styles.fourBoxRow}>
+              <TouchableOpacity style={styles.fourBoxBoxes} onPress={(event) => handlePress(event, 4)} >
+              <Text style={styles.fourBoxNumber}>4</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.fourBoxBoxes} onPress={(event) => handlePress(event, 3)} >
+              <Text style={styles.fourBoxNumber}>3</Text>
+              </TouchableOpacity>
+          </View>
+          {/* Bottom Row */}
+          <View style={styles.fourBoxRow}>
+              <TouchableOpacity style={styles.fourBoxBoxes} onPress={(event) => handlePress(event, 2)}  >
+              <Text style={styles.fourBoxNumber}>2</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.fourBoxBoxes} onPress={(event) => handlePress(event, 1)}  >
+              <Text style={styles.fourBoxNumber}>1</Text>
+              </TouchableOpacity>
+          </View>
+          </View>
+      );
+      };
+
+
+const SixBoxes = () =>
+  {
+      return (
+          <View style={styles.sixBoxContainer}>
+          {/* First Row */}
+          <View style={styles.sixBoxRow}>
+              <TouchableOpacity style={styles.sixBoxBoxes} onPress={(event) => handlePress(event, 6)}>
+              <Text style={styles.sixBoxNumber}>6</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sixBoxBoxes} onPress={(event) => handlePress(event, 5)}>
+              <Text style={styles.sixBoxNumber}>5</Text>
+              </TouchableOpacity>
+          </View>
+          {/* Second Row */}
+          <View style={styles.sixBoxRow}>
+              <TouchableOpacity style={styles.sixBoxBoxes} onPress={(event) => handlePress(event, 4)}>
+              <Text style={styles.sixBoxNumber}>4</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sixBoxBoxes} onPress={(event) => handlePress(event, 3)}>
+              <Text style={styles.sixBoxNumber}>3</Text>
+              </TouchableOpacity>
+          </View>
+          {/* Third Row */}
+          <View style={styles.sixBoxRow}>
+              <TouchableOpacity style={styles.sixBoxBoxes} onPress={(event) => handlePress(event, 2)}>
+              <Text style={styles.sixBoxNumber}>2</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sixBoxBoxes} onPress={(event) => handlePress(event, 1)}>
+              <Text style={styles.sixBoxNumber}>1</Text>
+              </TouchableOpacity>
+          </View>
+          </View>
+      );   
+  
+  }
+
+const NineBoxes = () => {
+  return (
+      <View style={styles.nineBoxContainer}>
+  {/* First Row */}
+  <View style={styles.nineBoxRow}>
+      <TouchableOpacity style={styles.nineBoxBoxes} onPress={(event) => handlePress(event, 9)}>
+      <Text style={styles.nineBoxNumber}>9</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.nineBoxBoxes} onPress={(event) => handlePress(event, 8)}>
+      <Text style={styles.nineBoxNumber}>8</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.nineBoxBoxes} onPress={(event) => handlePress(event, 7)}>
+      <Text style={styles.nineBoxNumber}>7</Text>
+      </TouchableOpacity>
+  </View>
+  {/* Second Row */}
+  <View style={styles.nineBoxRow}>
+      <TouchableOpacity style={styles.nineBoxBoxes} onPress={(event) => handlePress(event, 6)}>
+      <Text style={styles.nineBoxNumber}>6</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.nineBoxBoxes]} onPress={(event) => handlePress(event, 5)}>
+      <Text style={styles.nineBoxNumber}>5</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.nineBoxBoxes} onPress={(event) => handlePress(event, 4)}>
+      <Text style={styles.nineBoxNumber}>4</Text>
+      </TouchableOpacity>
+  </View>
+  {/* Third Row */}
+  <View style={styles.nineBoxRow}>
+      <TouchableOpacity style={styles.nineBoxBoxes} onPress={(event) => handlePress(event, 3)}>
+      <Text style={styles.nineBoxNumber}>3</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.nineBoxBoxes} onPress={(event) => handlePress(event, 2)}>
+      <Text style={styles.nineBoxNumber}>2</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.nineBoxBoxes} onPress={(event) => handlePress(event, 1)}>
+      <Text style={styles.nineBoxNumber}>1</Text>
+      </TouchableOpacity>
+  </View>
+  </View>
+);
+  }
 
     return (
         <TouchableHighlight
@@ -22,119 +132,14 @@ export const TargetSquares = ({ onPress }) =>
           <View style={styles.box}>
 
 
-        <NineBoxes />
+        <FourBoxes />
 
           </View>
         </TouchableHighlight>
       );
     };
     
-// The variations of the target squares go here. Only 3 possible choices: 4,6,9
-    const FourBoxes = () =>
-        {
-            return (
-                <View style={styles.fourBoxContainer}>
-                {/* Top Row */}
-                <View style={styles.fourBoxRow}>
-                    <TouchableOpacity style={styles.fourBoxBoxes} onPress={() => handlePress(4)} >
-                    <Text style={styles.fourBoxNumber}>4</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.fourBoxBoxes} onPress={() => handlePress(3)}  >
-                    <Text style={styles.fourBoxNumber}>3</Text>
-                    </TouchableOpacity>
-                </View>
-                {/* Bottom Row */}
-                <View style={styles.fourBoxRow}>
-                    <TouchableOpacity style={styles.fourBoxBoxes} onPress={() => handlePress(2)}  >
-                    <Text style={styles.fourBoxNumber}>2</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.fourBoxBoxes} onPress={() => handlePress(1)}  >
-                    <Text style={styles.fourBoxNumber}>1</Text>
-                    </TouchableOpacity>
-                </View>
-                </View>
-            );
-            };
 
-
-    const SixBoxes = () =>
-        {
-            return (
-                <View style={styles.sixBoxContainer}>
-                {/* First Row */}
-                <View style={styles.sixBoxRow}>
-                    <TouchableOpacity style={styles.sixBoxBoxes} onPress={() => handlePress(6)}>
-                    <Text style={styles.sixBoxNumber}>6</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.sixBoxBoxes} onPress={() => handlePress(5)}>
-                    <Text style={styles.sixBoxNumber}>5</Text>
-                    </TouchableOpacity>
-                </View>
-                {/* Second Row */}
-                <View style={styles.sixBoxRow}>
-                    <TouchableOpacity style={styles.sixBoxBoxes} onPress={() => handlePress(4)}>
-                    <Text style={styles.sixBoxNumber}>4</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.sixBoxBoxes} onPress={() => handlePress(3)}>
-                    <Text style={styles.sixBoxNumber}>3</Text>
-                    </TouchableOpacity>
-                </View>
-                {/* Third Row */}
-                <View style={styles.sixBoxRow}>
-                    <TouchableOpacity style={styles.sixBoxBoxes} onPress={() => handlePress(2)}>
-                    <Text style={styles.sixBoxNumber}>2</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.sixBoxBoxes} onPress={() => handlePress(1)}>
-                    <Text style={styles.sixBoxNumber}>1</Text>
-                    </TouchableOpacity>
-                </View>
-                </View>
-            );   
-        
-        }
-
-    const NineBoxes = () => {
-        return (
-            <View style={styles.nineBoxContainer}>
-        {/* First Row */}
-        <View style={styles.nineBoxRow}>
-            <TouchableOpacity style={styles.nineBoxBoxes} onPress={() => handlePress(9)}>
-            <Text style={styles.nineBoxNumber}>9</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.nineBoxBoxes} onPress={() => handlePress(8)}>
-            <Text style={styles.nineBoxNumber}>8</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.nineBoxBoxes} onPress={() => handlePress(7)}>
-            <Text style={styles.nineBoxNumber}>7</Text>
-            </TouchableOpacity>
-        </View>
-        {/* Second Row */}
-        <View style={styles.nineBoxRow}>
-            <TouchableOpacity style={styles.nineBoxBoxes} onPress={() => handlePress(6)}>
-            <Text style={styles.nineBoxNumber}>6</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.nineBoxBoxes]} onPress={() => handlePress(5)}>
-            <Text style={styles.nineBoxNumber}>5</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.nineBoxBoxes} onPress={() => handlePress(4)}>
-            <Text style={styles.nineBoxNumber}>4</Text>
-            </TouchableOpacity>
-        </View>
-        {/* Third Row */}
-        <View style={styles.nineBoxRow}>
-            <TouchableOpacity style={styles.nineBoxBoxes} onPress={() => handlePress(3)}>
-            <Text style={styles.nineBoxNumber}>3</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.nineBoxBoxes} onPress={() => handlePress(2)}>
-            <Text style={styles.nineBoxNumber}>2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.nineBoxBoxes} onPress={() => handlePress(1)}>
-            <Text style={styles.nineBoxNumber}>1</Text>
-            </TouchableOpacity>
-        </View>
-        </View>
-    );
-        }
 
 
     const styles = StyleSheet.create({
