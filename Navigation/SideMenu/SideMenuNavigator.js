@@ -20,7 +20,6 @@ const SideMenuNavigator = () => {
             initialRouteName="Home_Route">
                 <DrawerNavigator.Screen 
                 name='Home' 
-                swipeEnabled={true}
                 component={HomeScreen}
                 options={{
           tabBarIcon: ({ color, size }) => (

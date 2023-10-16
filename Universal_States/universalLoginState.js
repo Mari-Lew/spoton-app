@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState } from 'react';
 const UniversalLoginStateContext = createContext(); // keep track of if they are logged in or not
 
 // A hook to access the login state and update methods 
-export function useLoginState() {
+export function useLoginState() { 
     return useContext(UniversalLoginStateContext);
   }
 

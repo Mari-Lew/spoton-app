@@ -5,6 +5,8 @@
   import { NavigationContainer } from '@react-navigation/native';
   import { createNativeStackNavigator } from '@react-navigation/native-stack';
   import 'react-native-gesture-handler';
+  import { GestureHandlerRootView } from 'react-native-gesture-handler';
+  
 
 // Custom screens
   import { SignUp } from './Authentication/SignUp/SignUp';
