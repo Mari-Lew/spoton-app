@@ -9,35 +9,34 @@ import Login from '../Authentication/LogIn/Login';
 import DataList from './DataScrollList';
 import { useDataPoints } from './handlePitchData';
 import { useLoginState } from '../Universal_States/universalLoginState';
-import Header from '../Components/Header';
+import { TargetSquares } from './TargetSquares';
 
 export const HomeScreen = ( ) =>
 {
   const { updateIsLoggedIn } = useLoginState();
-  const { dataPoints, addDataPoint } = useDataPoints();
+  const { dataPoints } = useDataPoints();
 
 //Arrays ; will eventually be grabbed from the pitcher instead of a set list.
-  const pitchTypes = ['Fastball', 'Slider', 'Curveball', 'Changeup', 'Other'];
-  const locationNums = ['1', '2', '3', '4', '5','6','7','8','9'];
-  const hitSpots = ['Yes', 'No'];
 
 // for the swipeable bottom sheet
   const bottomSheetRef = useRef(null);
-  const renderContent = () => (
-    <View style={styles.bottomSheet}>
-      <Text>Bottom Sheet Content</Text>
-      <TouchableOpacity onPress={() => bottomSheetRef.current.close()}>
-        <Text>Close Bottom Sheet</Text>
-      </TouchableOpacity>
-    </View>
-  );
   
+  const handlePress = () => {
+    // Handle the press event
+    console.log('Square Pressed!');
+  };
 
     return (
         <View style={styles.container}>
         {updateIsLoggedIn ? (
           // Render the main content when the user is logged in
-          <View style ={styles.container}><View style={styles.mainSection}>
+          <View style ={styles.container}>
+            
+            
+            
+            <View style={styles.mainSection}>
+
+              <TargetSquares onPress={ handlePress} />
               
             </View>
             
@@ -81,14 +80,13 @@ const styles = StyleSheet.create({
       left: 0, // Position it at the left edge
       right: 0, // Position it at the right edge
       padding: 10,
-      height: '50%',
+      height: '70%',
+      
     },
 
   dataContainer:
   {
     position: 'absolute',
-    //width: '100%',
-    //height: '50%',
     backgroundColor: 'white',
     borderTopLeftRadius: '30%',
     borderTopRightRadius: '30%',
