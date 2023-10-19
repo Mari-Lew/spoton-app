@@ -9,10 +9,10 @@
   
 
 // Custom screens
-  import { SignUp } from './Authentication/SignUp/SignUp';
+  import { SignUp } from './Screens/SignUp/SignUp';
   import Login from './Screens/Login';
   import { HomeScreen } from './Home/HomeScreen';
-  import { ForgotPassword } from './Authentication/ForgotPassword'
+  import { ForgotPassword } from './Screens/ForgotPassword'
 
 // Universal States
   import { UniversalLoginProvider } from './Universal_States/universalLoginState';
