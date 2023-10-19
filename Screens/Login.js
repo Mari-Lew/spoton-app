@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View,KeyboardAvoidingView, Image, Text, ImageBackground, TouchableOpacity, Dimensions , TextInput, StyleSheet } from 'react-native';
-import { constants } from '../../Constants/constants';
-import { buttons } from '../../assets/Styles/buttons';
+import { constants } from '../Constants/constants';
+import { buttons } from '../assets/Styles/buttons';
 import { useNavigation, CommonActions } from '@react-navigation/native';
-import { useLoginState, updateIsLoggedIn } from '../../Universal_States/universalLoginState';
+import { useLoginState, updateIsLoggedIn } from '../Universal_States/universalLoginState';
   
 
 export function Login () {
@@ -52,7 +52,7 @@ return (
   <View style={styles.container}>
 { /* Background image - change when I can get my own */}
      <ImageBackground
-    source={require('../../assets/temp_background.jpg')} 
+    source={require('../assets/temp_background.jpg')} 
     style={styles.background}
     resizeMode="cover"
   >

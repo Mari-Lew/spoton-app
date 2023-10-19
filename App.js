@@ -10,7 +10,7 @@
 
 // Custom screens
   import { SignUp } from './Authentication/SignUp/SignUp';
-  import Login from './Authentication/LogIn/Login';
+  import Login from './Screens/Login';
   import { HomeScreen } from './Home/HomeScreen';
   import { ForgotPassword } from './Authentication/ForgotPassword'
 

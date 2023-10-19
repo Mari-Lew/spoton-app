@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { Login } from '../Authentication/LogIn/Login';
+import Login from '../Screens/Login';
 import { ForgotPassword } from '../Authentication/ForgotPassword';
 import { SignUp } from '../Authentication/SignUp/SignUp';
 import { HomeScreen } from '../Home/HomeScreen';

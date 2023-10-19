@@ -5,7 +5,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
-import Login from '../Authentication/LogIn/Login';
+import Login from '../Screens/Login';
 import DataList from './DataScrollList';
 import { useDataPoints } from './handlePitchData';
 import { useLoginState } from '../Universal_States/universalLoginState';
