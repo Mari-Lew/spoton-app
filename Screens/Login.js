@@ -4,7 +4,7 @@ import { constants } from '../Constants/constants';
 import { buttons } from '../assets/Styles/buttons';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { useLoginState, updateIsLoggedIn } from '../Universal_States/universalLoginState';
-  
+import { getAuth } from '@firebase/auth';
 
 export function Login () {
   // Variables and Such
@@ -21,6 +21,11 @@ export function Login () {
     const handleSignUpPress = () => {
       navigation.navigate('SignUp'); // Navigate to the SignUp screen
     };
+
+    const handleForgotPassPress = () => {
+      console.log("FORGOT PRESSED");
+      navigation.navigate('ForgotPassword');
+    }
 
     const handleEmailState = (text) => {
       setEmailText(text)
@@ -118,10 +123,8 @@ return (
       </View>
 
       <View style={styles.forgotPassword}>
-        <TouchableOpacity onPress={() => {navigation.navigate('ForgotPassword')}}>
-          <Text
-          style={styles.whiteText}
-          >{constants.forgotPass}</Text>
+        <TouchableOpacity onPress={handleForgotPassPress}>
+        <Text style={styles.whiteText}>{constants.forgotPass}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -190,11 +193,7 @@ verticalText: {
 forgotPassword:
 {
   width: '100%',
-  height:'100%',
-  color: '#fff',
   alignItems: 'center',
-  justifyContent: 'flex-start',
-  bottom: 1,
   paddingTop: 10,
 },
 

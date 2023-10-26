@@ -6,9 +6,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export function TargetSquares ({ onPress })
 {
-    const [clickedCoordinates, setClickedCoordinates] = useState(null);
+  const [clickedCoordinates, setClickedCoordinates] = useState(null);
 
-  const handlePress = (event, boxNumber) => {
+  const handlePress = (event, boxNumber,) => {
     const { locationX, locationY } = event.nativeEvent;
     const coordinates = { x: locationX, y: locationY };
     setClickedCoordinates(coordinates);

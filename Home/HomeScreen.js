@@ -4,7 +4,6 @@ import { useNavigation, CommonActions, DrawerActions } from '@react-navigation/n
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-
 import Login from '../Screens/Login';
 import DataList from './DataScrollList';
 import { useDataPoints } from './handlePitchData';
@@ -37,11 +36,10 @@ export const HomeScreen = ( ) =>
           // Render the main content when the user is logged in
           <View style ={styles.container}>
             
-            
-            
             <View style={styles.mainSection}>
 
-              <TargetSquares onPress={ handlePress} />
+              <TargetSquares onPress={ handlePress } />
+              
               
             </View>
             

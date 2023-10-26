@@ -5,6 +5,7 @@ import { buttons } from '../../assets/Styles/buttons';
 import { constants } from '../../Constants/constants';
 import Dropdown from './Dropdown';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth } from '@firebase/auth';
 
 export const SignUp = () => {
 // Variables and such

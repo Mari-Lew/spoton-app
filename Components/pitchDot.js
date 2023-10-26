@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-const pitchDot = ({ coordinates }) => {
+export const pitchDot = ({ coordinates }) => {
   if (!coordinates) {
     return null;
   }

@@ -3,7 +3,6 @@ import { auth } from "./config"
 import { useLoginState } from "../Universal_States/universalLoginState";
 import { useNavigation, CommonActions } from '@react-navigation/native';
 
-
 const { updateIsLoggedIn } = useLoginState();
 //Sign up
 export async function signUp(email, password) {

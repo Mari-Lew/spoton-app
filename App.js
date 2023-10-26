@@ -6,21 +6,20 @@
   import { createNativeStackNavigator } from '@react-navigation/native-stack';
   import 'react-native-gesture-handler';
   import { GestureHandlerRootView } from 'react-native-gesture-handler';
+  import { getAuth } from 'firebase/auth';
   
-
-// Custom screens
-  import { SignUp } from './Screens/SignUp/SignUp';
-  import Login from './Screens/Login';
-  import { HomeScreen } from './Home/HomeScreen';
-  import { ForgotPassword } from './Screens/ForgotPassword'
-
 // Universal States
   import { UniversalLoginProvider } from './Universal_States/universalLoginState';
   import Navigator from './Navigation/Navigator';
+import { initializeApp } from 'firebase/app';
 
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+// Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
 
   const saveLoggedInState = async (loggedIn) => {
     try {
@@ -42,21 +41,18 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    checkLoggedInState();
-  }, []); // Run once on component mount
+  // Firebase
+    function onAuthStateChanged(user) {
+      setUser(user);
+      if (initializing) setInitializing(false);
+    }
 
-  const handleLogin = () => {
-    // Perform login logic
-    saveLoggedInState(true);
-    setIsLoggedIn(true); // Update the state
-  };
+    useEffect(() => {
+      //const userSub = getAuth().onAuthStateChanged(onAuthStateChanged);
+      checkLoggedInState();
+      //return userSub;
+    }, []); // Run once on component mount
 
-  const handleLogout = () => {
-    // Perform logout logic
-    saveLoggedInState(false);
-    setIsLoggedIn(false); // Update the state
-  };
 
 //----------------------------------------------------------------- Above will be refactored later 
 

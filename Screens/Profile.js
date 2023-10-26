@@ -2,14 +2,31 @@ import * as React from 'react';
 import { View,Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 
 export default function ProfileScreen() {
+   const status = "pitcher"
+
    return (
 <View style={styles.screenContainer}>
 
 <View style={styles.topHalf}><Text style={{fontSize:16,fontWeight:'700'}}>Profile Screen</Text></View>
 
-<ScrollView style={styles.bottomHalf}>
-   <Text>"My Pitchers"</Text>
-</ScrollView>
+<View style={styles.bottomHalf}>
+  {status === "pitcher" && (
+    <Text style = {styles.title}>My Sessions</Text>
+  )}
+  
+  {status === "coach" && (
+    <Text>My Pitchers</Text>
+  )}
+  
+  {status === "director" && (
+    <Text>My Teams</Text>
+  )}
+
+  <ScrollView style = {styles.itemScroll}>
+   <Text>"AAAAA"</Text>
+  </ScrollView>
+
+</View>
 </View>
 
    );
@@ -28,7 +45,7 @@ export default function ProfileScreen() {
          width: '100%',
          height: '25%',
          backgroundColor: 'lightgrey',
-         padding: 10,
+         paddingTop: '8%',
          top: 0,
          left: 0, 
          right: 0, // Position it at the right edge
@@ -43,6 +60,15 @@ export default function ProfileScreen() {
          bottom: 0,
          left: 0, 
          right: 0, // Position it at the right edge
+      },
+
+      itemScroll: {
+         backgroundColor: '#0FFF4F',
+      },
+
+      title: {
+         fontSize: 25,
+         padding: 5,
       }
    }
  )

@@ -1,20 +1,6 @@
 import { useState } from 'react';
 
-const initialDataPoints = [
-  { id: '1', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '2', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '3', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '4', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '5', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '6', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '7', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '8', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '9', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '10', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-  { id: '11', pitchType: 'Fastball', targetSpot: '1', didHit: 'Yes' },
-
-
-];
+import { initialDataPoints } from '../Constants/fakeData';
 
 export const useDataPoints = () => {
   const [dataPoints, setDataPoints] = useState(initialDataPoints);
